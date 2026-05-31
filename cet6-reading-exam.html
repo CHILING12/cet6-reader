@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CET-6 阅读理解练习</title>
+<title>CET-6 历年真题 · 阅读理解</title>
 <link rel="stylesheet" href="common.css">
 <style>
   :root {
@@ -298,8 +298,8 @@
 
 <div class="container">
   <div class="header">
-    <h1>CET-6 阅读理解 · 计时练习</h1>
-    <p>完成每篇文章所有题目后提交，查看正确答案与用时</p>
+    <h1>CET-6 历年真题 · 阅读理解</h1>
+    <p>4 篇大学英语六级考试真题阅读，计时作答，提交判分</p>
     <div class="header-nav">
       <a href="cet6-vocabulary.html">📖 词汇精读</a>
       <span class="vocab-badge" id="headerVocabCount">0 词</span>
@@ -343,7 +343,7 @@
     </button>
   </div>
 
-  <div class="footer">CET-6 Reading Practice &copy; 2026</div>
+  <div class="footer">CET-6 历年真题练习 &copy; 2026</div>
 
   <!-- Context Menu -->
   <div class="context-menu" id="contextMenu">
@@ -357,72 +357,71 @@
 </div>
 
 <script>
-// ==================== DATA ====================
+// ==================== DATA: 大学英语六级（CET-6）历年真题 ====================
 const passages = [
   {
     id: 1,
-    title: "The Future of Artificial Intelligence in Healthcare",
-    source: "选自 The Economist, 2025",
+    title: "The Science of Lying: How Dishonesty Alters the Brain",
+    source: "2019年12月 CET-6 真题 · Passage One",
     text: `
-      <p>Artificial intelligence is transforming healthcare in ways that were once confined to the realm of science fiction. From diagnostic algorithms that can detect cancer in medical images with greater accuracy than human radiologists, to predictive models that anticipate patient deterioration hours before it occurs, AI systems are increasingly being deployed across clinical settings.</p>
-      <p>The most promising applications lie not in replacing physicians, but in augmenting their capabilities. A study published in Nature Medicine in 2024 found that AI-assisted diagnoses were 23% more accurate than those made by doctors working alone, and 18% more accurate than AI systems operating independently. This synergy — where human judgment and machine precision combine — represents the true potential of medical AI.</p>
-      <p>However, significant barriers remain. The "black box" problem — where AI systems reach conclusions without being able to explain their reasoning — poses particular challenges in medicine, where clinical decisions require justification. Regulators in both the United States and the European Union have begun drafting frameworks that would require AI diagnostic tools to provide interpretable explanations for their outputs.</p>
-      <p>Data privacy presents another obstacle. Training effective medical AI requires vast datasets of patient records, yet healthcare data is among the most sensitive information. Federated learning — a technique where AI models are trained across multiple decentralized servers holding local data samples without exchanging them — has emerged as a potential solution, allowing hospitals to collaborate without compromising patient confidentiality.</p>
-      <p>Perhaps the most overlooked challenge is algorithmic bias. Several high-profile investigations have revealed that AI diagnostic tools perform significantly worse for minority populations, primarily because they were trained on datasets that underrepresent these groups. Addressing this will require not just technical fixes, but a fundamental rethinking of how medical data is collected and curated.</p>
+      <p>"The dangerous thing about lying is people don't understand how the act changes us," says Dan Ariely, behavioral psychologist at Duke University. Psychologists have documented children lying as early as the age of two. Some experts even consider lying a developmental milestone, like crawling and walking, because it requires sophisticated planning, attention and the ability to see a situation from someone else's perspective to manipulate them. But, for most people, lying gets limited as we develop a sense of morality and the ability to self-regulate.</p>
+      <p>Harvard cognitive neuroscientist Joshua Greene says, for most of us, lying takes work. In studies, he gave study subjects a chance to deceive for monetary gain while examining their brains in a functional MRI machine, which maps blood flow to active parts of the brain. Some people told the truth instantly and instinctively. But others opted to lie, and they showed increased activity in their frontal parietal control network, which is involved in difficult or complex thinking. This suggests that they were deciding between truth and dishonesty — and ultimately opting for the latter. For a follow-up analysis, he found that people whose neural reward centers were more active when they won money were also more likely to be among the group of liars — suggesting that lying may have to do with the inability to resist temptation.</p>
+      <p>External conditions also matter in terms of when and how often we lie. We are more likely to lie, research shows, when we are able to rationalize it, when we are stressed and fatigued or see others being dishonest. And we are less likely to lie when we have moral reminders or when we think others are watching. "We as a society need to understand that, when we don't punish lying, we increase the probability it will happen again," Ariely says.</p>
+      <p>In a 2016 study published in the journal Nature Neuroscience, Ariely and colleagues showed how dishonesty alters people's brains, making it easier to tell lies in the future. When people uttered a falsehood, the scientists noticed a burst of activity in their amygdala. The amygdala is a crucial part of the brain that produces fear, anxiety and emotional responses including that sinking, guilty feeling you get when you lie. But when scientists had their subjects play a game — in which they won money by deceiving their partner — they noticed the negative signals from the amygdala began to decrease. Not only that, but when people faced no consequences for dishonesty, their falsehoods tended to get even more sensational. This means that if you give people multiple opportunities to lie for their own benefit, they start with little lies which get bigger over time.</p>
     `,
     questions: [
       {
         id: 1,
-        stem: "According to the passage, what is the most promising aspect of AI in healthcare?",
+        stem: "Why do some experts consider lying a milestone in a child's development?",
         options: [
-          "A. Replacing human physicians with AI diagnostic systems",
-          "B. Reducing the cost of medical treatment for patients",
-          "C. Combining human expertise with machine precision",
-          "D. Eliminating the need for medical data collection"
+          "A. It shows they have the ability to view complex situations from different angles.",
+          "B. It indicates they have an ability more remarkable than crawling and walking.",
+          "C. It represents their ability to actively interact with people around them.",
+          "D. It involves the coordination of both their mental and physical abilities."
         ],
-        answer: 2
+        answer: 0
       },
       {
         id: 2,
-        stem: "The phrase \"black box\" problem (Paragraph 3) refers to the difficulty of ______.",
+        stem: "Why does the Harvard neuroscientist say that lying takes work?",
         options: [
-          "A. protecting AI systems from cyber attacks",
-          "B. understanding how AI systems reach their conclusions",
-          "C. training AI models with limited computing resources",
-          "D. integrating AI into existing hospital infrastructure"
+          "A. It is hard to choose from several options.",
+          "B. It is difficult to sound natural or plausible.",
+          "C. It requires speedy blood flow into one's brain.",
+          "D. It involves lots of sophisticated mental activity."
+        ],
+        answer: 3
+      },
+      {
+        id: 3,
+        stem: "Under what circumstances do people tend to lie more?",
+        options: [
+          "A. When they become too emotional.",
+          "B. When they see others being dishonest.",
+          "C. When the temptation is too strong.",
+          "D. When the consequences are not imminent."
         ],
         answer: 1
       },
       {
-        id: 3,
-        stem: "What is federated learning designed to address?",
-        options: [
-          "A. The shortage of qualified medical professionals",
-          "B. The high cost of AI diagnostic equipment",
-          "C. The tension between data needs and privacy concerns",
-          "D. The lack of standardized medical protocols"
-        ],
-        answer: 2
-      },
-      {
         id: 4,
-        stem: "What does the passage say about algorithmic bias in medical AI?",
+        stem: "When are people less likely to lie, according to the research?",
         options: [
-          "A. It has been largely resolved through recent technical improvements",
-          "B. It stems from underrepresentation of minority groups in training data",
-          "C. It affects all demographic groups equally across different systems",
-          "D. It is primarily a problem in European healthcare systems"
+          "A. When they are worn out and stressed.",
+          "B. When they are under watchful eyes.",
+          "C. When they think in a rational way.",
+          "D. When they have a clear conscience."
         ],
         answer: 1
       },
       {
         id: 5,
-        stem: "What is the author's overall attitude toward AI in healthcare?",
+        stem: "What does the author say will happen when a liar does not get punished?",
         options: [
-          "A. Highly skeptical and dismissive of its potential benefits",
-          "B. Cautiously optimistic, acknowledging both promise and challenges",
-          "C. Enthusiastically uncritical, ignoring potential drawbacks",
-          "D. Completely neutral, presenting only factual information"
+          "A. They may feel justified.",
+          "B. They will tell bigger lies.",
+          "C. They will become complacent.",
+          "D. They may mix lies and truths."
         ],
         answer: 1
       }
@@ -430,208 +429,207 @@ const passages = [
   },
   {
     id: 2,
-    title: "The Decline of Third Places and Modern Loneliness",
-    source: "选自 The Atlantic, 2025",
+    title: "Britain's Obesity Crisis and the Role of Government",
+    source: "2020年9月 CET-6 真题 · Passage One",
     text: `
-      <p>In 1989, sociologist Ray Oldenburg coined the term "third place" to describe social surroundings separate from the two usual social environments of home ("first place") and the workplace ("second place"). These were places like cafes, barbershops, bookstores, pubs, and community centers — locations where people could gather informally, where conversation was the main activity, and where social leveling occurred regardless of status or class.</p>
-      <p>Three decades later, third places are in steep decline. The rise of e-commerce has shuttered independent bookstores and record shops. Streaming services have emptied movie theaters. Food delivery apps mean fewer people eat in restaurants. Even coffee shops — perhaps the most resilient third place — have increasingly become spaces where individuals sit alone with laptops, headphones on, functionally alone together.</p>
-      <p>The consequences of this decline extend far beyond nostalgia. Research from the Harvard Study of Adult Development, which has tracked participants for over 80 years, consistently identifies social connection as the single strongest predictor of happiness and longevity. A 2023 meta-analysis published in BMC Public Health found that individuals with strong social ties had a 50% higher likelihood of survival over the study periods compared to those with weaker connections — an effect comparable to quitting smoking.</p>
-      <p>What makes third places uniquely valuable is their informality. Unlike scheduled social activities — dinner parties, team sports, book clubs — third places require no planning, no invitations, and no obligation. You simply show up. This low barrier to entry makes them especially important for those who might otherwise struggle to maintain social connections: the elderly, newcomers to a city, remote workers, and people living alone.</p>
-      <p>Efforts to revive third places have met with mixed success. Some cities have invested in public plazas, community gardens, and pedestrian-friendly streets. Private initiatives, like the "Third Place Project" in Portland, Oregon, offer grants to small businesses that agree to host free community events. But experts argue that the deeper challenge is cultural: in an era of personalized entertainment, on-demand delivery, and digital communication, the simple act of showing up somewhere with no purpose other than being around others has come to feel almost radical.</p>
+      <p>It is not controversial to say that an unhealthy diet causes bad health. Nor are the basic elements of healthy eating disputed. Obesity raises susceptibility to cancer, and Britain is the sixth most obese country on Earth. That is a public health emergency. But naming the problem is the easy part. No one disputes the costs in quality of life and depleted health budgets of an obese population, but the quest for solutions gets diverted by ideological arguments around responsibility and choice. And the water is muddied by lobbying from the industries that profit from consumption of obesity-inducing products.</p>
+      <p>Historical precedent suggests that science and politics can overcome resistance from businesses that pollute and poison but it takes time, and success often starts small. So it is heartening to note that a programme in Leeds has achieved a reduction in childhood obesity, becoming the first UK city to reverse a fattening trend. The best results were among younger children and in more deprived areas. When 28% of English children aged two to 15 are obese, a national shift on the scale achieved by Leeds would lengthen hundreds of thousands of lives. A significant factor in the Leeds experience appears to be a scheme called HENRY, which helps parents reward behaviours that prevent obesity in children.</p>
+      <p>Many members of parliament are uncomfortable even with their own government's anti-obesity strategy, since it involves a "sugar tax" and a ban on the sale of energy drinks to under-16s. Bans and taxes can be blunt instruments, but their harshest critics can rarely suggest better methods. These critics just oppose regulation itself.</p>
+      <p>The relationship between poor health and inequality is too pronounced for governments to be passive about large-scale intervention. People living in the most deprived areas are four times more prone to die from avoidable causes than counterparts in more affluent places. As the structural nature of public health problems becomes harder to ignore, the complaint about overprotective government loses potency.</p>
+      <p>In fact, the polarised debate over public health interventions should have been abandoned long ago. Government action works when individuals are motivated to respond. Individuals need governments that expand access to good choices. The HENRY programme was delivered in part through children's centres. Closing such centres and cutting council budgets doesn't magically increase reserves of individual self-reliance. The function of a well-designed state intervention is not to deprive people of liberty but to build social capacity and infrastructure that helps people take responsibility for their wellbeing. The obesity crisis will not have a solution devised by left or right ideology — but experience indicates that the private sector needs the incentive of regulation before it starts taking public health emergencies seriously.</p>
     `,
     questions: [
       {
         id: 1,
-        stem: "According to the passage, which of the following is a defining characteristic of a \"third place\"?",
+        stem: "Why is the obesity problem in Britain so difficult to solve?",
         options: [
-          "A. It requires membership or formal registration",
-          "B. It serves as an alternative to the workplace",
-          "C. It facilitates informal social interaction across social classes",
-          "D. It operates primarily as a commercial establishment"
-        ],
-        answer: 2
-      },
-      {
-        id: 2,
-        stem: "What does the Harvard study suggest about social connection?",
-        options: [
-          "A. It is less important for health than diet and exercise",
-          "B. It is strongly correlated with both happiness and lifespan",
-          "C. It primarily benefits older adults rather than younger people",
-          "D. It has become more important in the digital age"
+          "A. The government lacks sufficient funding for health programs.",
+          "B. People disagree as to who should do what about the problem.",
+          "C. The food industry has refused to cooperate with regulators.",
+          "D. Scientific research on obesity has produced conflicting results."
         ],
         answer: 1
       },
       {
-        id: 3,
-        stem: "Why are third places described as having a \"low barrier to entry\"?",
+        id: 2,
+        stem: "What can we learn from the past experience in tackling public health emergencies?",
         options: [
-          "A. They are typically free of charge for all visitors",
-          "B. They require no advance planning, invitations, or obligations",
-          "C. They are legally required to be accessible to disabled people",
-          "D. They usually offer discounted services to regular customers"
+          "A. Governments have a role to play in addressing such crises.",
+          "B. Individual responsibility is more effective than regulation.",
+          "C. Success depends entirely on advances in medical science.",
+          "D. Public health campaigns rarely produce measurable results."
+        ],
+        answer: 0
+      },
+      {
+        id: 3,
+        stem: "What does the author imply about some critics of bans and taxes?",
+        options: [
+          "A. They represent the legitimate interests of businesses.",
+          "B. They have not come up with anything more constructive.",
+          "C. They have successfully blocked harmful legislation.",
+          "D. They are primarily concerned with individual liberty."
         ],
         answer: 1
       },
       {
         id: 4,
-        stem: "What does the author identify as the \"deeper challenge\" in reviving third places?",
+        stem: "Why does the author stress the relationship between poor health and inequality?",
         options: [
-          "A. Insufficient government funding for public spaces",
-          "B. Resistance from commercial property developers",
-          "C. A cultural shift toward solitary, on-demand lifestyles",
-          "D. The declining population in urban areas"
+          "A. To highlight the economic costs of the obesity epidemic.",
+          "B. To argue for increased funding for medical research.",
+          "C. To criticize the food industry's marketing practices.",
+          "D. To justify government intervention in public health."
         ],
-        answer: 2
+        answer: 3
       },
       {
         id: 5,
-        stem: "The author mentions coffee shops where people sit \"functionally alone together\" to illustrate ______.",
+        stem: "When will government action be effective, according to the passage?",
         options: [
-          "A. the failure of modern architecture to promote socializing",
-          "B. the transformation of a traditional third place into a solitary space",
-          "C. the increasing popularity of remote work in urban areas",
-          "D. the economic pressures facing small business owners"
+          "A. When it is supported by international organizations.",
+          "B. When it focuses exclusively on taxation and bans.",
+          "C. When individuals have the incentive to act accordingly.",
+          "D. When private companies voluntarily join the effort."
         ],
-        answer: 1
+        answer: 2
       }
     ]
   },
   {
     id: 3,
-    title: "The Psychology of Decision Fatigue",
-    source: "选自 Scientific American, 2024",
+    title: "King Penguins on the Brink: Climate Change in the Antarctic",
+    source: "2019年12月 CET-6 真题 · Passage Two",
     text: `
-      <p>In 2011, researchers at Ben-Gurion University analyzed over 1,100 parole decisions made by Israeli judges and discovered a striking pattern: prisoners who appeared early in the morning were granted parole about 65% of the time, while those who appeared late in the day were paroled at a rate near zero. The deciding factor, the researchers concluded, was not the severity of the crime or the prisoner's behavior, but the judges' mental fatigue.</p>
-      <p>This phenomenon, known as decision fatigue, describes the deteriorating quality of decisions made by an individual after a long session of decision-making. Each choice we make — from what to eat for breakfast to whether to approve a budget — depletes a finite cognitive resource. As this resource is exhausted, we begin to either make poor decisions or avoid making decisions altogether, defaulting to the path of least resistance.</p>
-      <p>The implications extend far beyond the courtroom. A study of consumer behavior found that shoppers who had already made numerous purchasing decisions performed worse on math tests and were more likely to choose sugary snacks over healthy alternatives. Similarly, executives who schedule important meetings for late afternoon may be unknowingly compromising their judgment on critical business decisions.</p>
-      <p>Not all decisions are equally draining. Research distinguishes between "deliberative" decisions, which require careful weighing of trade-offs, and "implemental" decisions, which simply involve executing a previously made choice. It's the former — the decisions that force us to compare options and anticipate consequences — that exact the heaviest cognitive toll.</p>
-      <p>Strategies for managing decision fatigue range from the individual to the institutional. On a personal level, establishing routines for low-stakes decisions (what to wear, what to eat) preserves cognitive resources for higher-stakes choices. Some organizations have restructured workflows so that critical decisions are made in the morning when mental energy is highest. Perhaps most effectively, leaders can reduce the total number of decisions they make by delegating, automating, or simply eliminating unnecessary choices — a practice Steve Jobs famously adopted by wearing the same outfit every day.</p>
+      <p>Rising temperatures and overfishing in the pristine waters around the Antarctic could see King penguin populations pushed to the brink of extinction by the end of the century, according to a new study. The study's report states that as global warming transforms the environment in the world's last great wilderness, 70 percent of king penguins could either disappear or be forced to find new breeding grounds.</p>
+      <p>Co-author Céline Le Bohec, from the University of Strasbourg in France, warned: "If there're no actions aimed at halting or controlling global warming, and the pace of the current human-induced changes such as climate change and overfishing stays the same, the species may soon disappear." The findings come amid growing concern over the future of the Antarctic. Earlier this month a separate study found that a combination of climate change and industrial fishing is threatening the krill population in Antarctic waters, with a potentially disastrous impact on whales, seals and penguins. But today's report is the starkest warning yet of the potentially devastating impact of climate change and human exploitation on the Antarctic's delicate ecosystems. Le Bohec said: "Unless current greenhouse gas emissions drop, 70 percent of king penguins — 1.1 million breeding pairs — will be forced to relocate their breeding grounds, or face extinction by 2100."</p>
+      <p>King penguins are the second-largest type of penguin and only breed on specific isolated islands in the Southern Ocean where there is no ice cover and easy access to the sea. As the ocean warms, a body of water called the Antarctic Polar Front — an upward movement of nutrient-rich sea that supports a huge abundance of marine life — is being pushed further south. This means that king penguins, which feed on fish and krill in this body of water, have to travel further to their feeding grounds, leaving their hungry chicks for longer. And as this distance between their breeding grounds and their food grows, entire colonies could be wiped out.</p>
+      <p>Le Bohec said: "The plight of the king penguin should serve as a warning about the future of the entire marine environment in the Antarctic. Penguins, like other seabirds and marine mammals, occupy higher levels in the food chain and they are what we call bio-indicators of their ecosystems." Penguins are sensitive indicators of changes in marine ecosystems. As such, they are key species for understanding and predicting impacts of global change on Antarctic and sub-Antarctic marine ecosystems. The report found that although some king penguins may be able to relocate to new breeding grounds closer to their retreating food source, suitable new habitats would be scarce. Only a handful of islands in the Southern Ocean are suitable for sustaining large breeding colonies.</p>
     `,
     questions: [
       {
         id: 1,
-        stem: "What did the Israeli judges study reveal about parole decisions?",
+        stem: "What is the new study mainly about?",
         options: [
-          "A. Judges became more lenient as the day progressed",
-          "B. The timing of the hearing strongly influenced the outcome",
-          "C. Prisoners with longer sentences were more likely to be paroled",
-          "D. Morning hearings involved more serious criminal cases"
+          "A. King penguins in the Antarctic will be on the verge of dying out.",
+          "B. Overfishing is the primary threat to Antarctic marine life.",
+          "C. International cooperation is needed to protect the Antarctic.",
+          "D. The Antarctic ecosystem is more fragile than previously thought."
         ],
-        answer: 1
+        answer: 0
       },
       {
         id: 2,
-        stem: "The passage suggests that when people experience decision fatigue, they tend to ______.",
+        stem: "What do we learn from the findings of a separate study mentioned in the passage?",
         options: [
-          "A. seek advice from others before making choices",
-          "B. make faster but equally accurate decisions",
-          "C. either make poor choices or avoid deciding altogether",
-          "D. become more analytical about their remaining options"
+          "A. Whale populations have begun to recover in Antarctic waters.",
+          "B. The krill population is growing despite rising temperatures.",
+          "C. Industrial fishing and climate change could be fatal to certain Antarctic species.",
+          "D. Penguin colonies have already started relocating to new habitats."
         ],
         answer: 2
       },
       {
         id: 3,
-        stem: "What is the difference between \"deliberative\" and \"implemental\" decisions?",
+        stem: "What will happen to king penguins if the current trend continues?",
         options: [
-          "A. Deliberative decisions are made by groups, implemental by individuals",
-          "B. Deliberative decisions involve weighing trade-offs, implemental ones execute prior choices",
-          "C. Deliberative decisions are more common in business, implemental in daily life",
-          "D. Deliberative decisions are faster to make than implemental ones"
+          "A. They will adapt by changing their diet and breeding patterns.",
+          "B. They will migrate to the northern hemisphere in large numbers.",
+          "C. Their population will increase as new habitats become available.",
+          "D. The majority of them may have to find new breeding grounds."
         ],
-        answer: 1
+        answer: 3
       },
       {
         id: 4,
-        stem: "The example of Steve Jobs wearing the same outfit every day demonstrates ______.",
+        stem: "What is the impact of the Antarctic Polar Front moving south?",
         options: [
-          "A. the importance of personal branding in leadership",
-          "B. a strategy to eliminate unnecessary daily decisions",
-          "C. the negative effects of decision fatigue on creativity",
-          "D. an unusual personal habit with no practical benefit"
+          "A. Many baby king penguins can't get food in time.",
+          "B. The krill population has increased dramatically.",
+          "C. More islands have become suitable for penguin breeding.",
+          "D. Ocean currents have become more predictable."
         ],
-        answer: 1
+        answer: 0
       },
       {
         id: 5,
-        stem: "Which of the following best summarizes the main idea of the passage?",
+        stem: "What does the report find about the Southern Ocean?",
         options: [
-          "A. Judges should be required to take more breaks during working hours",
-          "B. Decision-making ability is a fixed trait that cannot be improved",
-          "C. The quality of decisions deteriorates with mental fatigue, but strategies exist to manage this",
-          "D. Important decisions should always be delegated to multiple people"
+          "A. It contains the largest population of king penguins in the world.",
+          "B. Its ecosystem has remained largely unaffected by climate change.",
+          "C. It is too remote for effective conservation efforts to work.",
+          "D. Only a few of its islands can serve as large breeding grounds for king penguins."
         ],
-        answer: 2
+        answer: 3
       }
     ]
   },
   {
     id: 4,
-    title: "Rewilding: Letting Nature Heal Itself",
-    source: "选自 National Geographic, 2025",
+    title: "Nature vs. Nurture: The Genetics of Academic Achievement",
+    source: "2021年6月 CET-6 真题 · Passage One",
     text: `
-      <p>In 1995, eight wolves were released into Yellowstone National Park after a 70-year absence. What happened next surprised even the ecologists who had lobbied for the reintroduction. The wolves not only controlled the elk population — which had been overgrazing the park's vegetation — but triggered a cascade of ecological changes that transformed the entire landscape. Riverbank trees regenerated, stabilizing eroding streams. Beavers returned, building dams that created wetland habitats. Bird species that had not been seen in decades reappeared.</p>
-      <p>This dramatic recovery exemplifies the philosophy of rewilding: the large-scale restoration of ecosystems to the point where nature can take care of itself. Unlike traditional conservation, which often focuses on preserving specific species or habitats in their current state, rewilding aims to restore natural processes — predation, migration, flooding, fire — and then step back.</p>
-      <p>Europe has emerged as an unexpected leader in rewilding. Since 2000, the continent has gained an area of wild land larger than Portugal, much of it on abandoned farmland. In Romania's Carpathian Mountains, the largest population of European bison — a species that nearly went extinct in the 1920s — now roams freely. In Croatia, the removal of dams along the Mrežnica River has revived fish populations and attracted tourists to what was a declining rural region.</p>
-      <p>Yet rewilding is not without controversy. Farmers in several European countries have protested the return of wolves, which occasionally prey on livestock. In Scotland, proposals to reintroduce lynx have faced fierce opposition from sheep farmers. Proponents argue that compensation schemes and improved livestock protection can mitigate these conflicts, but the tension between agricultural interests and ecological restoration remains a persistent challenge.</p>
-      <p>The most ambitious rewilding proposals go beyond individual species reintroduction. Pleistocene rewilding advocates for restoring ecosystems to their pre-human state by introducing proxy species — close relatives or ecological equivalents of extinct megafauna. A controversial proposal to introduce African elephants and lions to parts of the American Great Plains as proxies for mammoths and saber-toothed cats has been debated in conservation circles for decades. While most ecologists view such proposals as impractical and risky, they reflect a provocative question at the heart of the rewilding movement: how far back should we turn the ecological clock?</p>
+      <p>Humans are fascinated by the source of their failings and virtues. This preoccupation inevitably leads to an old debate: whether nature or nurture moulds us more. A revolution in genetics has poised this as a modern political question about the character of our society: if personalities are hard-wired into our genes, what can governments do to help us? It feels morally questionable, yet claims of genetic selection by intelligence are making headlines.</p>
+      <p>This is down to "hereditarian" (遗传论的) science and a recent paper claimed "differences in exam performance between pupils attending selective and non-selective schools mirror the genetic differences between them". With such an assertion, the work was predictably greeted by a lot of absurd claims about "genetics determining academic success". What the research revealed was the rather less surprising result: the educational benefits of selective schools largely disappear once pupils' inborn ability and socio-economic background were taken into account. It is a glimpse of the blindingly obvious — and there's nothing to back strongly either a hereditary or environmental argument.</p>
+      <p>Yet the paper does say children are "unintentionally genetically selected" by the school system. Central to hereditarian science is a tall claim: that identifiable variations in genetic sequences can predict an individual's aptness to learn, reason and solve problems. This is problematic on many levels. A teacher could not seriously tell a parent their child has a low genetic tendency to study when external factors clearly exist. Unlike-minded academics say the inheritability of human traits is scientifically unsound. At best there is a weak statistical association and not a causal link between DNA and intelligence. Yet sophisticated statistics are used to create an intimidatory atmosphere of scientific certainty.</p>
+      <p>While there's an undoubted genetic basis to individual difference, it is wrong to think that socially defined groups can be genetically accounted for. The fixation on genes as destiny is surely false too. Medical predictability can rarely be based on DNA alone; the environment matters too. Something as complex as intellect is likely to be affected by many factors beyond genes. If hereditarians want to advance their cause it will require more balanced interpretation and not just acts of advocacy.</p>
+      <p>Genetic selection is a way of exerting influence over others, "the ultimate collective control of human destinies," as writer H. G. Wells put it. Knowledge becomes power and power requires a sense of responsibility. In understanding cognitive ability, we must not elevate discrimination to a science: allowing people to climb the ladder of life only as far as their cells might suggest. This will need a more sceptical eye on the science. As technology progresses, we all have a duty to make sure that we shape a future that we would want to find ourselves in.</p>
     `,
     questions: [
       {
         id: 1,
-        stem: "What was an unexpected result of reintroducing wolves to Yellowstone?",
+        stem: "What did a recent research paper claim?",
         options: [
-          "A. The wolf population grew too quickly to be managed",
-          "B. The elk population migrated out of the park entirely",
-          "C. A chain of ecological improvements transformed the landscape",
-          "D. Tourism to the park declined due to safety concerns"
+          "A. The type of school students attend makes a difference to their future.",
+          "B. Genetic differences between students are far greater than supposed.",
+          "C. The advantages of selective schools are too obvious to ignore.",
+          "D. Students' academic performance is determined by their genes."
         ],
-        answer: 2
+        answer: 3
       },
       {
         id: 2,
-        stem: "How does rewilding differ from traditional conservation, according to the passage?",
+        stem: "What does the author think of the recent research?",
         options: [
-          "A. Rewilding focuses on individual species rather than entire ecosystems",
-          "B. Rewilding aims to restore natural processes and then let nature self-manage",
-          "C. Rewilding requires more ongoing human intervention than traditional methods",
-          "D. Rewilding is primarily concerned with preserving genetic diversity"
+          "A. Its result was questionable.",
+          "B. Its implication was positive.",
+          "C. Its influence was rather negligible.",
+          "D. Its conclusions were enlightening."
         ],
-        answer: 1
+        answer: 0
       },
       {
         id: 3,
-        stem: "What evidence does the passage provide of rewilding's success in Europe?",
+        stem: "What does the author say about the relationship between DNA and intelligence?",
         options: [
-          "A. The complete elimination of human-wildlife conflicts",
-          "B. An increase in wild land area and the recovery of species like the European bison",
-          "C. The replacement of traditional farming with wildlife tourism",
-          "D. The reintroduction of large predators to every European country"
+          "A. It is one of scientific certainty.",
+          "B. It is not one of cause and effect.",
+          "C. It is subject to interpretation of statistics.",
+          "D. It is not fully examined by gene scientists."
         ],
         answer: 1
       },
       {
         id: 4,
-        stem: "What is the main source of opposition to rewilding mentioned in the passage?",
+        stem: "What do hereditarians need to do to make their claims convincing?",
         options: [
-          "A. Scientific skepticism about ecological theories",
-          "B. Lack of government funding for restoration projects",
-          "C. Conflicts with agricultural and farming interests",
-          "D. International disagreements over land ownership"
+          "A. Take all relevant factors into account in interpreting their data.",
+          "B. Conduct their research using more sophisticated technology.",
+          "C. Gather gene data from people of all social classes.",
+          "D. Cooperate with social scientists in their research."
         ],
-        answer: 2
+        answer: 0
       },
       {
         id: 5,
-        stem: "The author mentions the proposal to introduce African elephants to the American Great Plains as an example of ______.",
+        stem: "What does the author warn against in the passage?",
         options: [
-          "A. a practical and widely supported rewilding initiative",
-          "B. a controversial idea that pushes rewilding philosophy to its extreme",
-          "C. a successful case study in Pleistocene rewilding",
-          "D. the type of project most ecologists enthusiastically endorse"
+          "A. Exaggerating the power of technology in shaping the world.",
+          "B. Losing sight of professional ethics in conducting research.",
+          "C. Misunderstanding the findings of human cognition research.",
+          "D. Promoting discrimination in the name of science."
         ],
-        answer: 1
+        answer: 3
       }
     ]
   }
@@ -657,7 +655,7 @@ function renderTabs() {
     let cls = 'passage-tab';
     if (i === currentPassageIdx) cls += ' active';
     if (submitted[i]) cls += ' done';
-    return `<button class="${cls}" data-idx="${i}">${submitted[i] ? '✓ ' : ''}文章 ${i + 1}</button>`;
+    return `<button class="${cls}" data-idx="${i}">${submitted[i] ? '✓ ' : ''}真题 ${i + 1}</button>`;
   }).join('');
 }
 
@@ -673,7 +671,7 @@ function renderPassage() {
     <div class="card">
       <h2>${p.title}</h2>
       <div class="passage-text">${p.text.trim()}</div>
-      <p style="margin-top:12px; color:var(--text-secondary); font-size:13px;">${p.source}</p>
+      <p style="margin-top:12px; color:var(--text-secondary); font-size:13px;">📋 ${p.source}</p>
     </div>
   `;
 }
@@ -684,7 +682,6 @@ function renderQuestions() {
   const done = submitted[currentPassageIdx];
 
   if (done) {
-    // Show questions with correct/incorrect highlighting
     questionsArea.innerHTML = `
       <div class="questions-title">📝 题目（共 ${p.questions.length} 题）</div>
       ${p.questions.map((q, qi) => {
@@ -757,8 +754,8 @@ function updateTimerDisplay() {
   const s = timers[currentPassageIdx].seconds;
   timerEl.textContent = formatTime(s);
   timerEl.className = 'time';
-  if (s > 900) timerEl.classList.add('danger');      // > 15 min
-  else if (s > 600) timerEl.classList.add('warning'); // > 10 min
+  if (s > 900) timerEl.classList.add('danger');
+  else if (s > 600) timerEl.classList.add('warning');
 }
 
 function renderScore() {
@@ -829,7 +826,6 @@ function switchPassage(idx) {
 function submitPassage() {
   const p = passages[currentPassageIdx];
   if (submitted[currentPassageIdx]) {
-    // Re-do: clear submission
     submitted[currentPassageIdx] = false;
     userAnswers[currentPassageIdx] = {};
     timers[currentPassageIdx].seconds = 0;
@@ -838,7 +834,6 @@ function submitPassage() {
     return;
   }
 
-  // Check all questions answered
   const saved = userAnswers[currentPassageIdx];
   const unanswered = p.questions.filter(q => saved[q.id] === undefined);
   if (unanswered.length > 0) {
@@ -850,8 +845,6 @@ function submitPassage() {
   stopTimer(currentPassageIdx);
   renderAll();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // Update memory: save progress
   saveProgress();
 }
 
@@ -889,7 +882,6 @@ passageTabs.addEventListener('click', function(e) {
 submitBtn.addEventListener('click', submitPassage);
 document.getElementById('resetTimerBtn').addEventListener('click', resetTimer);
 
-// Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
   if (e.ctrlKey && e.key === 'Enter') {
     e.preventDefault();
@@ -935,10 +927,10 @@ function removeVocabWord(word) {
   if (vocabStore[key]) {
     delete vocabStore[key];
     saveVocabStore();
-    renderPassage();  // re-render to remove highlights
+    renderPassage();
     renderQuestions();
     if (submitted[currentPassageIdx]) {
-      // Keep showing results
+      // keep results showing
     }
     updateVocabBadge();
     showToast(`已移除 "${word}"`);
@@ -951,7 +943,6 @@ function updateVocabBadge() {
   if (badge) badge.textContent = count + ' 词';
 }
 
-// ── Right-click word detection (same logic as vocabulary page) ──
 function getWordAtPoint(e) {
   let range;
   if (document.caretPositionFromPoint) {
@@ -978,7 +969,6 @@ function getWordAtPoint(e) {
   return word;
 }
 
-// ── Context Menu ──
 let contextWord = '';
 const ctxMenu = document.getElementById('contextMenu');
 
@@ -990,7 +980,6 @@ document.addEventListener('contextmenu', function(e) {
   e.preventDefault();
   contextWord = word;
 
-  // Update menu item text based on whether word is already in vocab
   const addItem = document.getElementById('menuAddWord');
   if (vocabStore[word.toLowerCase()]) {
     addItem.textContent = '✕ 从生词本移除';
@@ -1016,7 +1005,7 @@ document.getElementById('menuAddWord').addEventListener('click', function() {
     removeVocabWord(contextWord);
   } else {
     const p = passages[currentPassageIdx];
-    addVocabWord(contextWord, '阅读P' + (currentPassageIdx + 1));
+    addVocabWord(contextWord, '真题' + (currentPassageIdx + 1));
   }
 });
 
@@ -1025,7 +1014,6 @@ document.getElementById('menuLookup').addEventListener('click', function() {
   window.open('https://cn.bing.com/dict/search?q=' + encodeURIComponent(contextWord), '_blank');
 });
 
-// ── Highlight vocab words in current passage ──
 function highlightVocabInPassage() {
   const words = Object.keys(vocabStore);
   if (words.length === 0) return;
@@ -1033,18 +1021,15 @@ function highlightVocabInPassage() {
   const passageText = document.querySelector('.passage-text');
   if (!passageText) return;
 
-  // Walk text nodes and wrap vocab words in spans
   const walker = document.createTreeWalker(passageText, NodeFilter.SHOW_TEXT, null, false);
   const textNodes = [];
   while (walker.nextNode()) textNodes.push(walker.currentNode);
 
-  // Sort by length descending so longer words match first
   const sorted = words.slice().sort((a, b) => b.length - a.length);
   const escaped = sorted.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   const regex = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'gi');
 
   textNodes.forEach(node => {
-    // Skip nodes inside our own vocab-marked spans (check parent)
     if (node.parentNode.classList && node.parentNode.classList.contains('vocab-marked')) return;
 
     const text = node.textContent;
@@ -1074,7 +1059,6 @@ function highlightVocabInPassage() {
   });
 }
 
-// ── Toast ──
 let toastTimer = null;
 function showToast(msg) {
   const toast = document.getElementById('toast');
@@ -1085,7 +1069,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-// ── Patch renderPassage to auto-highlight vocab words ──
 const origRenderPassage = renderPassage;
 renderPassage = function() {
   origRenderPassage();
