@@ -31,23 +31,23 @@
 ## 使用方法
 
 ```
-双击 cet6-reading-exam.html → 浏览器打开 → 开始练习
+本地：双击 index.html（或 cet6-reading-exam.html）→ 浏览器打开 → 开始练习
+在线：https://chiling12.github.io/cet6-reader/
 ```
-
-或访问在线版：https://chiling12.github.io/cet6-reader/
 
 ---
 
 ## 项目结构
 
 ```
-├── cet6-reading-exam.html   阅读理解练习（六级真题）
-├── cet6-vocabulary.html    词汇精读 + 生词本 + 默写
-├── common.css              共享样式
-├── articles.js             文章数据（18篇）
-├── vocab-store.js          生词存储模块
-├── dictation.js            默写引擎
-├── export.js               导出工具
+├── index.html                 GitHub Pages 跳转页 → 阅读练习
+├── cet6-reading-exam.html    阅读理解练习（4 篇六级真题）
+├── cet6-vocabulary.html      词汇精读 + 生词本 + 默写
+├── common.css                共享样式
+├── articles.js               文章数据（18 篇外刊）
+├── vocab-store.js            生词存储模块
+├── dictation.js              默写引擎
+├── export.js                 导出工具
 └── README.md
 ```
 
