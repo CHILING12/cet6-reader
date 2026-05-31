@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CET-6 阅读理解练习</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #333333;
+    --text-secondary: #666666;
+    --border: #e0e0e0;
+    --accent: #1a73e8;
+    --accent-hover: #1557b0;
+    --correct: #0d904f;
+    --wrong: #d93025;
+    --correct-bg: #e6f4ea;
+    --wrong-bg: #fce8e6;
+    --timer-bg: #fafafa;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    --accent-light: #e8f0fe;
+    --radius-sm: 8px;
+    --transition: 0.15s;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .header p {
+    color: var(--text-secondary);
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  /* Passage Selector */
+  .passage-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .passage-tab {
+    padding: 10px 22px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--card-bg);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .passage-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .passage-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .passage-tab.done { border-color: var(--correct); color: var(--correct); }
+  .passage-tab.done.active { background: var(--correct); color: #fff; border-color: var(--correct); }
+
+  /* Timer Bar */
+  .timer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .timer-bar .time {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    min-width: 80px;
+    text-align: center;
+  }
+  .timer-bar .time.warning { color: #e37400; }
+  .timer-bar .time.danger { color: var(--wrong); }
+  .timer-bar button {
+    padding: 8px 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.15s;
+  }
+  .timer-bar button:hover { background: #f0f0f0; }
+  .timer-bar button.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .timer-bar button.primary:hover { background: var(--accent-hover); }
+
+  /* Passage Card */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    display: inline-block;
+  }
+  .passage-text {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+  .passage-text p { margin-bottom: 12px; text-indent: 2em; }
+
+  /* Questions */
+  .questions-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .question {
+    margin-bottom: 28px;
+  }
+  .question .q-header {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .question .q-header .q-num {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 13px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .options { list-style: none; }
+  .options li {
+    margin-bottom: 6px;
+  }
+  .options label {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    font-size: 14px;
+  }
+  .options label:hover { background: #f8f9fa; border-color: #ccc; }
+  .options input[type="radio"] { margin-right: 10px; margin-top: 3px; flex-shrink: 0; accent-color: var(--accent); }
+  .options input[type="radio"]:checked + span { font-weight: 500; }
+
+  /* Answered states */
+  .options label.correct-answer {
+    border-color: var(--correct) !important;
+    background: var(--correct-bg) !important;
+  }
+  .options label.wrong-answer {
+    border-color: var(--wrong) !important;
+    background: var(--wrong-bg) !important;
+  }
+  .options label.user-wrong {
+    border-color: var(--wrong) !important;
+    background: var(--wrong-bg) !important;
+  }
+
+  /* Result badge */
+  .q-result {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 8px;
+    padding: 2px 10px;
+    border-radius: 10px;
+  }
+  .q-result.correct { color: var(--correct); background: var(--correct-bg); }
+  .q-result.wrong { color: var(--wrong); background: var(--wrong-bg); }
+
+  /* Score Summary */
+  .score-summary {
+    display: none;
+    text-align: center;
+    padding: 28px;
+    margin-bottom: 24px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .score-summary.show { display: block; }
+  .score-summary .big-score {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-summary .big-score.good { color: var(--correct); }
+  .score-summary .big-score.ok { color: #e37400; }
+  .score-summary .big-score.bad { color: var(--wrong); }
+  .score-summary .meta {
+    margin-top: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+  .score-summary .meta span { margin: 0 12px; }
+
+  .disabled-radio { pointer-events: none; }
+
+  .footer {
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 40px;
+  }
+
+  /* ── Header nav ── */
+  .header-nav {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .header-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    transition: all 0.15s;
+  }
+  .header-nav a:hover { background: var(--accent); color: #fff; }
+  .vocab-badge {
+    background: #e8f0fe;
+    color: var(--accent);
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  /* ── Vocab-marked words in passages ── */
+  .vocab-marked {
+    background: #fff9c4;
+    border-bottom: 1px dashed #f9a825;
+    cursor: pointer;
+    padding: 0 1px;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+  .vocab-marked:hover { background: #fff176; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>CET-6 阅读理解 · 计时练习</h1>
+    <p>完成每篇文章所有题目后提交，查看正确答案与用时</p>
+    <div class="header-nav">
+      <a href="cet6-vocabulary.html">📖 词汇精读</a>
+      <span class="vocab-badge" id="headerVocabCount">0 词</span>
+    </div>
+  </div>
+
+  <div class="passage-tabs" id="passageTabs"></div>
+
+  <div class="timer-bar">
+    <span>⏱ 本篇文章用时</span>
+    <span class="time" id="timer">00:00</span>
+    <button id="resetTimerBtn">重置计时</button>
+  </div>
+
+  <div id="passageArea"></div>
+
+  <div class="score-summary" id="scoreSummary">
+    <div class="big-score" id="bigScore">0/5</div>
+    <div class="meta">
+      正确率 <span id="accuracy">0%</span>
+      <span>|</span>
+      用时 <span id="timeUsed">00:00</span>
+    </div>
+  </div>
+
+  <div id="questionsArea"></div>
+
+  <div style="text-align:center; margin-top: 24px;" id="actionArea">
+    <button class="primary" id="submitBtn" style="
+      padding: 14px 48px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    " onmouseover="this.style.background='var(--accent-hover)'" onmouseout="this.style.background='var(--accent)'">
+      提交答案
+    </button>
+  </div>
+
+  <div class="footer">CET-6 Reading Practice &copy; 2026</div>
+
+  <!-- Context Menu -->
+  <div class="context-menu" id="contextMenu">
+    <div class="menu-item" id="menuAddWord">➕ 添加到生词本</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" id="menuLookup">🔍 查词典 (必应)</div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const passages = [
+  {
+    id: 1,
+    title: "The Future of Artificial Intelligence in Healthcare",
+    source: "选自 The Economist, 2025",
+    text: `
+      <p>Artificial intelligence is transforming healthcare in ways that were once confined to the realm of science fiction. From diagnostic algorithms that can detect cancer in medical images with greater accuracy than human radiologists, to predictive models that anticipate patient deterioration hours before it occurs, AI systems are increasingly being deployed across clinical settings.</p>
+      <p>The most promising applications lie not in replacing physicians, but in augmenting their capabilities. A study published in Nature Medicine in 2024 found that AI-assisted diagnoses were 23% more accurate than those made by doctors working alone, and 18% more accurate than AI systems operating independently. This synergy — where human judgment and machine precision combine — represents the true potential of medical AI.</p>
+      <p>However, significant barriers remain. The "black box" problem — where AI systems reach conclusions without being able to explain their reasoning — poses particular challenges in medicine, where clinical decisions require justification. Regulators in both the United States and the European Union have begun drafting frameworks that would require AI diagnostic tools to provide interpretable explanations for their outputs.</p>
+      <p>Data privacy presents another obstacle. Training effective medical AI requires vast datasets of patient records, yet healthcare data is among the most sensitive information. Federated learning — a technique where AI models are trained across multiple decentralized servers holding local data samples without exchanging them — has emerged as a potential solution, allowing hospitals to collaborate without compromising patient confidentiality.</p>
+      <p>Perhaps the most overlooked challenge is algorithmic bias. Several high-profile investigations have revealed that AI diagnostic tools perform significantly worse for minority populations, primarily because they were trained on datasets that underrepresent these groups. Addressing this will require not just technical fixes, but a fundamental rethinking of how medical data is collected and curated.</p>
+    `,
+    questions: [
+      {
+        id: 1,
+        stem: "According to the passage, what is the most promising aspect of AI in healthcare?",
+        options: [
+          "A. Replacing human physicians with AI diagnostic systems",
+          "B. Reducing the cost of medical treatment for patients",
+          "C. Combining human expertise with machine precision",
+          "D. Eliminating the need for medical data collection"
+        ],
+        answer: 2
+      },
+      {
+        id: 2,
+        stem: "The phrase \"black box\" problem (Paragraph 3) refers to the difficulty of ______.",
+        options: [
+          "A. protecting AI systems from cyber attacks",
+          "B. understanding how AI systems reach their conclusions",
+          "C. training AI models with limited computing resources",
+          "D. integrating AI into existing hospital infrastructure"
+        ],
+        answer: 1
+      },
+      {
+        id: 3,
+        stem: "What is federated learning designed to address?",
+        options: [
+          "A. The shortage of qualified medical professionals",
+          "B. The high cost of AI diagnostic equipment",
+          "C. The tension between data needs and privacy concerns",
+          "D. The lack of standardized medical protocols"
+        ],
+        answer: 2
+      },
+      {
+        id: 4,
+        stem: "What does the passage say about algorithmic bias in medical AI?",
+        options: [
+          "A. It has been largely resolved through recent technical improvements",
+          "B. It stems from underrepresentation of minority groups in training data",
+          "C. It affects all demographic groups equally across different systems",
+          "D. It is primarily a problem in European healthcare systems"
+        ],
+        answer: 1
+      },
+      {
+        id: 5,
+        stem: "What is the author's overall attitude toward AI in healthcare?",
+        options: [
+          "A. Highly skeptical and dismissive of its potential benefits",
+          "B. Cautiously optimistic, acknowledging both promise and challenges",
+          "C. Enthusiastically uncritical, ignoring potential drawbacks",
+          "D. Completely neutral, presenting only factual information"
+        ],
+        answer: 1
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "The Decline of Third Places and Modern Loneliness",
+    source: "选自 The Atlantic, 2025",
+    text: `
+      <p>In 1989, sociologist Ray Oldenburg coined the term "third place" to describe social surroundings separate from the two usual social environments of home ("first place") and the workplace ("second place"). These were places like cafes, barbershops, bookstores, pubs, and community centers — locations where people could gather informally, where conversation was the main activity, and where social leveling occurred regardless of status or class.</p>
+      <p>Three decades later, third places are in steep decline. The rise of e-commerce has shuttered independent bookstores and record shops. Streaming services have emptied movie theaters. Food delivery apps mean fewer people eat in restaurants. Even coffee shops — perhaps the most resilient third place — have increasingly become spaces where individuals sit alone with laptops, headphones on, functionally alone together.</p>
+      <p>The consequences of this decline extend far beyond nostalgia. Research from the Harvard Study of Adult Development, which has tracked participants for over 80 years, consistently identifies social connection as the single strongest predictor of happiness and longevity. A 2023 meta-analysis published in BMC Public Health found that individuals with strong social ties had a 50% higher likelihood of survival over the study periods compared to those with weaker connections — an effect comparable to quitting smoking.</p>
+      <p>What makes third places uniquely valuable is their informality. Unlike scheduled social activities — dinner parties, team sports, book clubs — third places require no planning, no invitations, and no obligation. You simply show up. This low barrier to entry makes them especially important for those who might otherwise struggle to maintain social connections: the elderly, newcomers to a city, remote workers, and people living alone.</p>
+      <p>Efforts to revive third places have met with mixed success. Some cities have invested in public plazas, community gardens, and pedestrian-friendly streets. Private initiatives, like the "Third Place Project" in Portland, Oregon, offer grants to small businesses that agree to host free community events. But experts argue that the deeper challenge is cultural: in an era of personalized entertainment, on-demand delivery, and digital communication, the simple act of showing up somewhere with no purpose other than being around others has come to feel almost radical.</p>
+    `,
+    questions: [
+      {
+        id: 1,
+        stem: "According to the passage, which of the following is a defining characteristic of a \"third place\"?",
+        options: [
+          "A. It requires membership or formal registration",
+          "B. It serves as an alternative to the workplace",
+          "C. It facilitates informal social interaction across social classes",
+          "D. It operates primarily as a commercial establishment"
+        ],
+        answer: 2
+      },
+      {
+        id: 2,
+        stem: "What does the Harvard study suggest about social connection?",
+        options: [
+          "A. It is less important for health than diet and exercise",
+          "B. It is strongly correlated with both happiness and lifespan",
+          "C. It primarily benefits older adults rather than younger people",
+          "D. It has become more important in the digital age"
+        ],
+        answer: 1
+      },
+      {
+        id: 3,
+        stem: "Why are third places described as having a \"low barrier to entry\"?",
+        options: [
+          "A. They are typically free of charge for all visitors",
+          "B. They require no advance planning, invitations, or obligations",
+          "C. They are legally required to be accessible to disabled people",
+          "D. They usually offer discounted services to regular customers"
+        ],
+        answer: 1
+      },
+      {
+        id: 4,
+        stem: "What does the author identify as the \"deeper challenge\" in reviving third places?",
+        options: [
+          "A. Insufficient government funding for public spaces",
+          "B. Resistance from commercial property developers",
+          "C. A cultural shift toward solitary, on-demand lifestyles",
+          "D. The declining population in urban areas"
+        ],
+        answer: 2
+      },
+      {
+        id: 5,
+        stem: "The author mentions coffee shops where people sit \"functionally alone together\" to illustrate ______.",
+        options: [
+          "A. the failure of modern architecture to promote socializing",
+          "B. the transformation of a traditional third place into a solitary space",
+          "C. the increasing popularity of remote work in urban areas",
+          "D. the economic pressures facing small business owners"
+        ],
+        answer: 1
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "The Psychology of Decision Fatigue",
+    source: "选自 Scientific American, 2024",
+    text: `
+      <p>In 2011, researchers at Ben-Gurion University analyzed over 1,100 parole decisions made by Israeli judges and discovered a striking pattern: prisoners who appeared early in the morning were granted parole about 65% of the time, while those who appeared late in the day were paroled at a rate near zero. The deciding factor, the researchers concluded, was not the severity of the crime or the prisoner's behavior, but the judges' mental fatigue.</p>
+      <p>This phenomenon, known as decision fatigue, describes the deteriorating quality of decisions made by an individual after a long session of decision-making. Each choice we make — from what to eat for breakfast to whether to approve a budget — depletes a finite cognitive resource. As this resource is exhausted, we begin to either make poor decisions or avoid making decisions altogether, defaulting to the path of least resistance.</p>
+      <p>The implications extend far beyond the courtroom. A study of consumer behavior found that shoppers who had already made numerous purchasing decisions performed worse on math tests and were more likely to choose sugary snacks over healthy alternatives. Similarly, executives who schedule important meetings for late afternoon may be unknowingly compromising their judgment on critical business decisions.</p>
+      <p>Not all decisions are equally draining. Research distinguishes between "deliberative" decisions, which require careful weighing of trade-offs, and "implemental" decisions, which simply involve executing a previously made choice. It's the former — the decisions that force us to compare options and anticipate consequences — that exact the heaviest cognitive toll.</p>
+      <p>Strategies for managing decision fatigue range from the individual to the institutional. On a personal level, establishing routines for low-stakes decisions (what to wear, what to eat) preserves cognitive resources for higher-stakes choices. Some organizations have restructured workflows so that critical decisions are made in the morning when mental energy is highest. Perhaps most effectively, leaders can reduce the total number of decisions they make by delegating, automating, or simply eliminating unnecessary choices — a practice Steve Jobs famously adopted by wearing the same outfit every day.</p>
+    `,
+    questions: [
+      {
+        id: 1,
+        stem: "What did the Israeli judges study reveal about parole decisions?",
+        options: [
+          "A. Judges became more lenient as the day progressed",
+          "B. The timing of the hearing strongly influenced the outcome",
+          "C. Prisoners with longer sentences were more likely to be paroled",
+          "D. Morning hearings involved more serious criminal cases"
+        ],
+        answer: 1
+      },
+      {
+        id: 2,
+        stem: "The passage suggests that when people experience decision fatigue, they tend to ______.",
+        options: [
+          "A. seek advice from others before making choices",
+          "B. make faster but equally accurate decisions",
+          "C. either make poor choices or avoid deciding altogether",
+          "D. become more analytical about their remaining options"
+        ],
+        answer: 2
+      },
+      {
+        id: 3,
+        stem: "What is the difference between \"deliberative\" and \"implemental\" decisions?",
+        options: [
+          "A. Deliberative decisions are made by groups, implemental by individuals",
+          "B. Deliberative decisions involve weighing trade-offs, implemental ones execute prior choices",
+          "C. Deliberative decisions are more common in business, implemental in daily life",
+          "D. Deliberative decisions are faster to make than implemental ones"
+        ],
+        answer: 1
+      },
+      {
+        id: 4,
+        stem: "The example of Steve Jobs wearing the same outfit every day demonstrates ______.",
+        options: [
+          "A. the importance of personal branding in leadership",
+          "B. a strategy to eliminate unnecessary daily decisions",
+          "C. the negative effects of decision fatigue on creativity",
+          "D. an unusual personal habit with no practical benefit"
+        ],
+        answer: 1
+      },
+      {
+        id: 5,
+        stem: "Which of the following best summarizes the main idea of the passage?",
+        options: [
+          "A. Judges should be required to take more breaks during working hours",
+          "B. Decision-making ability is a fixed trait that cannot be improved",
+          "C. The quality of decisions deteriorates with mental fatigue, but strategies exist to manage this",
+          "D. Important decisions should always be delegated to multiple people"
+        ],
+        answer: 2
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Rewilding: Letting Nature Heal Itself",
+    source: "选自 National Geographic, 2025",
+    text: `
+      <p>In 1995, eight wolves were released into Yellowstone National Park after a 70-year absence. What happened next surprised even the ecologists who had lobbied for the reintroduction. The wolves not only controlled the elk population — which had been overgrazing the park's vegetation — but triggered a cascade of ecological changes that transformed the entire landscape. Riverbank trees regenerated, stabilizing eroding streams. Beavers returned, building dams that created wetland habitats. Bird species that had not been seen in decades reappeared.</p>
+      <p>This dramatic recovery exemplifies the philosophy of rewilding: the large-scale restoration of ecosystems to the point where nature can take care of itself. Unlike traditional conservation, which often focuses on preserving specific species or habitats in their current state, rewilding aims to restore natural processes — predation, migration, flooding, fire — and then step back.</p>
+      <p>Europe has emerged as an unexpected leader in rewilding. Since 2000, the continent has gained an area of wild land larger than Portugal, much of it on abandoned farmland. In Romania's Carpathian Mountains, the largest population of European bison — a species that nearly went extinct in the 1920s — now roams freely. In Croatia, the removal of dams along the Mrežnica River has revived fish populations and attracted tourists to what was a declining rural region.</p>
+      <p>Yet rewilding is not without controversy. Farmers in several European countries have protested the return of wolves, which occasionally prey on livestock. In Scotland, proposals to reintroduce lynx have faced fierce opposition from sheep farmers. Proponents argue that compensation schemes and improved livestock protection can mitigate these conflicts, but the tension between agricultural interests and ecological restoration remains a persistent challenge.</p>
+      <p>The most ambitious rewilding proposals go beyond individual species reintroduction. Pleistocene rewilding advocates for restoring ecosystems to their pre-human state by introducing proxy species — close relatives or ecological equivalents of extinct megafauna. A controversial proposal to introduce African elephants and lions to parts of the American Great Plains as proxies for mammoths and saber-toothed cats has been debated in conservation circles for decades. While most ecologists view such proposals as impractical and risky, they reflect a provocative question at the heart of the rewilding movement: how far back should we turn the ecological clock?</p>
+    `,
+    questions: [
+      {
+        id: 1,
+        stem: "What was an unexpected result of reintroducing wolves to Yellowstone?",
+        options: [
+          "A. The wolf population grew too quickly to be managed",
+          "B. The elk population migrated out of the park entirely",
+          "C. A chain of ecological improvements transformed the landscape",
+          "D. Tourism to the park declined due to safety concerns"
+        ],
+        answer: 2
+      },
+      {
+        id: 2,
+        stem: "How does rewilding differ from traditional conservation, according to the passage?",
+        options: [
+          "A. Rewilding focuses on individual species rather than entire ecosystems",
+          "B. Rewilding aims to restore natural processes and then let nature self-manage",
+          "C. Rewilding requires more ongoing human intervention than traditional methods",
+          "D. Rewilding is primarily concerned with preserving genetic diversity"
+        ],
+        answer: 1
+      },
+      {
+        id: 3,
+        stem: "What evidence does the passage provide of rewilding's success in Europe?",
+        options: [
+          "A. The complete elimination of human-wildlife conflicts",
+          "B. An increase in wild land area and the recovery of species like the European bison",
+          "C. The replacement of traditional farming with wildlife tourism",
+          "D. The reintroduction of large predators to every European country"
+        ],
+        answer: 1
+      },
+      {
+        id: 4,
+        stem: "What is the main source of opposition to rewilding mentioned in the passage?",
+        options: [
+          "A. Scientific skepticism about ecological theories",
+          "B. Lack of government funding for restoration projects",
+          "C. Conflicts with agricultural and farming interests",
+          "D. International disagreements over land ownership"
+        ],
+        answer: 2
+      },
+      {
+        id: 5,
+        stem: "The author mentions the proposal to introduce African elephants to the American Great Plains as an example of ______.",
+        options: [
+          "A. a practical and widely supported rewilding initiative",
+          "B. a controversial idea that pushes rewilding philosophy to its extreme",
+          "C. a successful case study in Pleistocene rewilding",
+          "D. the type of project most ecologists enthusiastically endorse"
+        ],
+        answer: 1
+      }
+    ]
+  }
+];
+
+// ==================== STATE ====================
+let currentPassageIdx = 0;
+let timers = passages.map(() => ({ seconds: 0, running: false, interval: null }));
+let submitted = passages.map(() => false);
+let userAnswers = passages.map(() => ({}));
+
+// ==================== RENDER ====================
+const passageTabs = document.getElementById('passageTabs');
+const passageArea = document.getElementById('passageArea');
+const questionsArea = document.getElementById('questionsArea');
+const timerEl = document.getElementById('timer');
+const submitBtn = document.getElementById('submitBtn');
+const scoreSummary = document.getElementById('scoreSummary');
+const actionArea = document.getElementById('actionArea');
+
+function renderTabs() {
+  passageTabs.innerHTML = passages.map((p, i) => {
+    let cls = 'passage-tab';
+    if (i === currentPassageIdx) cls += ' active';
+    if (submitted[i]) cls += ' done';
+    return `<button class="${cls}" data-idx="${i}">${submitted[i] ? '✓ ' : ''}文章 ${i + 1}</button>`;
+  }).join('');
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function renderPassage() {
+  const p = passages[currentPassageIdx];
+  passageArea.innerHTML = `
+    <div class="card">
+      <h2>${p.title}</h2>
+      <div class="passage-text">${p.text.trim()}</div>
+      <p style="margin-top:12px; color:var(--text-secondary); font-size:13px;">${p.source}</p>
+    </div>
+  `;
+}
+
+function renderQuestions() {
+  const p = passages[currentPassageIdx];
+  const saved = userAnswers[currentPassageIdx];
+  const done = submitted[currentPassageIdx];
+
+  if (done) {
+    // Show questions with correct/incorrect highlighting
+    questionsArea.innerHTML = `
+      <div class="questions-title">📝 题目（共 ${p.questions.length} 题）</div>
+      ${p.questions.map((q, qi) => {
+        const userAns = saved[q.id];
+        const correct = p.questions[qi].answer;
+        const isCorrect = userAns === correct;
+        return `
+          <div class="question">
+            <div class="q-header">
+              <span class="q-num">${qi + 1}</span>
+              ${q.stem}
+              <span class="q-result ${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? '✓ 正确' : '✗ 错误'}</span>
+            </div>
+            <ul class="options disabled-radio">
+              ${q.options.map((opt, oi) => {
+                let cls = '';
+                if (oi === correct) cls = 'correct-answer';
+                if (oi === userAns && !isCorrect) cls = 'user-wrong';
+                return `
+                  <li>
+                    <label class="${cls}">
+                      <input type="radio" disabled ${oi === userAns ? 'checked' : ''}>
+                      <span>${opt}</span>
+                      ${oi === correct ? '<span style="margin-left:auto;font-weight:700;font-size:12px;color:var(--correct)">← 正确答案</span>' : ''}
+                    </label>
+                  </li>`;
+              }).join('')}
+            </ul>
+          </div>`;
+      }).join('')}
+    `;
+    submitBtn.textContent = '重新作答';
+    submitBtn.style.display = 'inline-block';
+  } else {
+    questionsArea.innerHTML = `
+      <div class="questions-title">📝 题目（共 ${p.questions.length} 题）</div>
+      ${p.questions.map((q, qi) => `
+        <div class="question">
+          <div class="q-header">
+            <span class="q-num">${qi + 1}</span>
+            ${q.stem}
+          </div>
+          <ul class="options">
+            ${q.options.map((opt, oi) => `
+              <li>
+                <label>
+                  <input type="radio" name="q${q.id}" value="${oi}" ${saved[q.id] === oi ? 'checked' : ''} data-qid="${q.id}" data-oidx="${oi}">
+                  <span>${opt}</span>
+                </label>
+              </li>`).join('')}
+          </ul>
+        </div>
+      `).join('')}
+    `;
+    submitBtn.textContent = '提交答案';
+    submitBtn.style.display = 'inline-block';
+
+    // Attach event listeners to radio buttons
+    questionsArea.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const qid = parseInt(this.dataset.qid);
+        const oidx = parseInt(this.dataset.oidx);
+        userAnswers[currentPassageIdx][qid] = oidx;
+      });
+    });
+  }
+}
+
+function updateTimerDisplay() {
+  const s = timers[currentPassageIdx].seconds;
+  timerEl.textContent = formatTime(s);
+  timerEl.className = 'time';
+  if (s > 900) timerEl.classList.add('danger');      // > 15 min
+  else if (s > 600) timerEl.classList.add('warning'); // > 10 min
+}
+
+function renderScore() {
+  if (!submitted[currentPassageIdx]) {
+    scoreSummary.classList.remove('show');
+    return;
+  }
+  const p = passages[currentPassageIdx];
+  const saved = userAnswers[currentPassageIdx];
+  let correct = 0;
+  p.questions.forEach(q => {
+    if (saved[q.id] === q.answer) correct++;
+  });
+  const total = p.questions.length;
+  const pct = Math.round((correct / total) * 100);
+
+  scoreSummary.classList.add('show');
+  const big = document.getElementById('bigScore');
+  big.textContent = correct + '/' + total;
+  big.className = 'big-score ' + (pct >= 80 ? 'good' : pct >= 60 ? 'ok' : 'bad');
+  document.getElementById('accuracy').textContent = pct + '%';
+  document.getElementById('timeUsed').textContent = formatTime(timers[currentPassageIdx].seconds);
+}
+
+function renderAll() {
+  renderTabs();
+  renderPassage();
+  renderQuestions();
+  updateTimerDisplay();
+  renderScore();
+}
+
+// ==================== TIMER ====================
+function startTimer(idx) {
+  if (timers[idx].running) return;
+  timers[idx].running = true;
+  timers[idx].interval = setInterval(() => {
+    timers[idx].seconds++;
+    if (idx === currentPassageIdx) updateTimerDisplay();
+  }, 1000);
+}
+
+function stopTimer(idx) {
+  timers[idx].running = false;
+  if (timers[idx].interval) {
+    clearInterval(timers[idx].interval);
+    timers[idx].interval = null;
+  }
+}
+
+function resetTimer() {
+  stopTimer(currentPassageIdx);
+  timers[currentPassageIdx].seconds = 0;
+  updateTimerDisplay();
+  if (!submitted[currentPassageIdx]) startTimer(currentPassageIdx);
+}
+
+// ==================== ACTIONS ====================
+function switchPassage(idx) {
+  if (idx === currentPassageIdx) return;
+  stopTimer(currentPassageIdx);
+  currentPassageIdx = idx;
+  if (!submitted[currentPassageIdx]) startTimer(currentPassageIdx);
+  renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitPassage() {
+  const p = passages[currentPassageIdx];
+  if (submitted[currentPassageIdx]) {
+    // Re-do: clear submission
+    submitted[currentPassageIdx] = false;
+    userAnswers[currentPassageIdx] = {};
+    timers[currentPassageIdx].seconds = 0;
+    renderAll();
+    startTimer(currentPassageIdx);
+    return;
+  }
+
+  // Check all questions answered
+  const saved = userAnswers[currentPassageIdx];
+  const unanswered = p.questions.filter(q => saved[q.id] === undefined);
+  if (unanswered.length > 0) {
+    alert(`还有 ${unanswered.length} 道题未作答，请完成所有题目后再提交。`);
+    return;
+  }
+
+  submitted[currentPassageIdx] = true;
+  stopTimer(currentPassageIdx);
+  renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Update memory: save progress
+  saveProgress();
+}
+
+// ==================== PERSISTENCE ====================
+function saveProgress() {
+  const data = {
+    submitted,
+    userAnswers,
+    timers: timers.map(t => ({ seconds: t.seconds })),
+    currentPassageIdx
+  };
+  localStorage.setItem('cet6-reading-progress', JSON.stringify(data));
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem('cet6-reading-progress');
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (data.submitted) submitted = data.submitted;
+    if (data.userAnswers) userAnswers = data.userAnswers;
+    if (data.timers) data.timers.forEach((t, i) => { if (timers[i]) timers[i].seconds = t.seconds || 0; });
+    if (data.currentPassageIdx !== undefined) currentPassageIdx = data.currentPassageIdx;
+  } catch (e) { /* ignore corrupt data */ }
+}
+
+// ==================== EVENTS ====================
+passageTabs.addEventListener('click', function(e) {
+  const tab = e.target.closest('.passage-tab');
+  if (!tab) return;
+  const idx = parseInt(tab.dataset.idx);
+  switchPassage(idx);
+});
+
+submitBtn.addEventListener('click', submitPassage);
+document.getElementById('resetTimerBtn').addEventListener('click', resetTimer);
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'Enter') {
+    e.preventDefault();
+    submitPassage();
+  }
+});
+
+// ==================== VOCABULARY INTEGRATION ====================
+const VOCAB_KEY = 'cet6_vocabulary';
+let vocabStore = {};
+
+function loadVocabStore() {
+  try {
+    vocabStore = JSON.parse(localStorage.getItem(VOCAB_KEY)) || {};
+  } catch (e) { vocabStore = {}; }
+}
+
+function saveVocabStore() {
+  localStorage.setItem(VOCAB_KEY, JSON.stringify(vocabStore));
+}
+
+function addVocabWord(word, article) {
+  const key = word.toLowerCase();
+  if (vocabStore[key]) {
+    showToast(`"${word}" 已在生词本中`);
+    return false;
+  }
+  vocabStore[key] = {
+    word: word,
+    note: '',
+    article: article || '阅读',
+    addedAt: new Date().toISOString()
+  };
+  saveVocabStore();
+  highlightVocabInPassage();
+  updateVocabBadge();
+  showToast(`已添加 "${word}" → 生词本`);
+  return true;
+}
+
+function removeVocabWord(word) {
+  const key = word.toLowerCase();
+  if (vocabStore[key]) {
+    delete vocabStore[key];
+    saveVocabStore();
+    renderPassage();  // re-render to remove highlights
+    renderQuestions();
+    if (submitted[currentPassageIdx]) {
+      // Keep showing results
+    }
+    updateVocabBadge();
+    showToast(`已移除 "${word}"`);
+  }
+}
+
+function updateVocabBadge() {
+  const count = Object.keys(vocabStore).length;
+  const badge = document.getElementById('headerVocabCount');
+  if (badge) badge.textContent = count + ' 词';
+}
+
+// ── Right-click word detection (same logic as vocabulary page) ──
+function getWordAtPoint(e) {
+  let range;
+  if (document.caretPositionFromPoint) {
+    const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if (pos && pos.offsetNode && pos.offsetNode.nodeType === Node.TEXT_NODE) {
+      range = document.createRange();
+      range.setStart(pos.offsetNode, pos.offset);
+      range.setEnd(pos.offsetNode, pos.offset);
+    }
+  } else if (document.caretRangeFromPoint) {
+    range = document.caretRangeFromPoint(e.clientX, e.clientY);
+  }
+  if (!range) return '';
+  const textNode = range.startContainer;
+  const offset = range.startOffset;
+  const text = textNode.textContent;
+  if (!text) return '';
+  let start = offset, end = offset;
+  while (start > 0 && /\w/.test(text[start - 1])) start--;
+  while (end < text.length && /\w/.test(text[end])) end++;
+  const word = text.slice(start, end).trim();
+  if (word.length < 2 || word.length > 40) return '';
+  if (!/[a-zA-Z]/.test(word)) return '';
+  return word;
+}
+
+// ── Context Menu ──
+let contextWord = '';
+const ctxMenu = document.getElementById('contextMenu');
+
+document.addEventListener('contextmenu', function(e) {
+  const passageEl = e.target.closest('.passage-text');
+  if (!passageEl) { ctxMenu.style.display = 'none'; return; }
+  const word = getWordAtPoint(e);
+  if (!word) { ctxMenu.style.display = 'none'; return; }
+  e.preventDefault();
+  contextWord = word;
+
+  // Update menu item text based on whether word is already in vocab
+  const addItem = document.getElementById('menuAddWord');
+  if (vocabStore[word.toLowerCase()]) {
+    addItem.textContent = '✕ 从生词本移除';
+  } else {
+    addItem.textContent = '➕ 添加到生词本';
+  }
+
+  ctxMenu.style.display = 'block';
+  ctxMenu.style.left = e.clientX + 'px';
+  ctxMenu.style.top = e.clientY + 'px';
+  const rect = ctxMenu.getBoundingClientRect();
+  if (rect.right > window.innerWidth) ctxMenu.style.left = (e.clientX - rect.width) + 'px';
+  if (rect.bottom > window.innerHeight) ctxMenu.style.top = (e.clientY - rect.height) + 'px';
+});
+
+document.addEventListener('click', function(e) {
+  if (!ctxMenu.contains(e.target)) ctxMenu.style.display = 'none';
+});
+
+document.getElementById('menuAddWord').addEventListener('click', function() {
+  ctxMenu.style.display = 'none';
+  if (vocabStore[contextWord.toLowerCase()]) {
+    removeVocabWord(contextWord);
+  } else {
+    const p = passages[currentPassageIdx];
+    addVocabWord(contextWord, '阅读P' + (currentPassageIdx + 1));
+  }
+});
+
+document.getElementById('menuLookup').addEventListener('click', function() {
+  ctxMenu.style.display = 'none';
+  window.open('https://cn.bing.com/dict/search?q=' + encodeURIComponent(contextWord), '_blank');
+});
+
+// ── Highlight vocab words in current passage ──
+function highlightVocabInPassage() {
+  const words = Object.keys(vocabStore);
+  if (words.length === 0) return;
+
+  const passageText = document.querySelector('.passage-text');
+  if (!passageText) return;
+
+  // Walk text nodes and wrap vocab words in spans
+  const walker = document.createTreeWalker(passageText, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  // Sort by length descending so longer words match first
+  const sorted = words.slice().sort((a, b) => b.length - a.length);
+  const escaped = sorted.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const regex = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'gi');
+
+  textNodes.forEach(node => {
+    // Skip nodes inside our own vocab-marked spans (check parent)
+    if (node.parentNode.classList && node.parentNode.classList.contains('vocab-marked')) return;
+
+    const text = node.textContent;
+    regex.lastIndex = 0;
+    if (!regex.test(text)) return;
+
+    regex.lastIndex = 0;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0, match;
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+      }
+      const span = document.createElement('span');
+      span.className = 'vocab-marked';
+      span.textContent = match[0];
+      const note = vocabStore[match[0].toLowerCase()]?.note;
+      span.title = note || '已收藏到生词本';
+      span.dataset.word = match[0];
+      fragment.appendChild(span);
+      lastIndex = regex.lastIndex;
+    }
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+    }
+    node.parentNode.replaceChild(fragment, node);
+  });
+}
+
+// ── Toast ──
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  if (toastTimer) clearTimeout(toastTimer);
+  toast.textContent = msg;
+  toast.classList.add('show');
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// ── Patch renderPassage to auto-highlight vocab words ──
+const origRenderPassage = renderPassage;
+renderPassage = function() {
+  origRenderPassage();
+  highlightVocabInPassage();
+};
+
+// ==================== INIT ====================
+loadVocabStore();
+loadProgress();
+updateVocabBadge();
+startTimer(currentPassageIdx);
+renderAll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CET-6 词汇阅读 — 六级词汇文章精读</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --card-bg: #ffffff;
+    --text: #2c2c2c;
+    --text-secondary: #6b6b6b;
+    --accent: #4a6fa5;
+    --accent-light: #e8eff8;
+    --highlight: #fff3b0;
+    --highlight-hover: #ffe066;
+    --border: #e0ddd5;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.10);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --transition: 0.2s ease;
+    --sidebar-width: 420px;
+  }
+
+  body {
+    font-family: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'Songti SC', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  .header .logo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .header .logo span { color: var(--text-secondary); font-weight: 400; font-size: 0.85rem; }
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-family: inherit;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+  }
+  .btn:hover { background: #f5f3ee; border-color: #c5c0b5; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover { background: #3d5d8a; border-color: #3d5d8a; }
+  .btn-danger { color: #c44; }
+  .btn-danger:hover { background: #fff0f0; border-color: #c44; }
+  .btn-sm { padding: 4px 10px; font-size: 0.78rem; }
+  .vocab-count {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  /* ── Layout ── */
+  .app-layout {
+    display: flex;
+    min-height: calc(100vh - 61px);
+  }
+  .main-content {
+    flex: 1;
+    padding: 32px 40px 60px;
+    max-width: 860px;
+    margin: 0 auto;
+    transition: margin-right var(--transition);
+  }
+  .main-content.sidebar-open { margin-right: 0; }
+
+  /* ── Article Card ── */
+  .article-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .article-card h2 {
+    font-size: 1.55rem;
+    margin-bottom: 6px;
+    color: #1a1a1a;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+  .article-card .article-meta {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .article-card p {
+    text-indent: 2em;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+  .article-card p:last-child { margin-bottom: 0; }
+
+  /* ── Marked words in articles ── */
+  .word-marked {
+    background: var(--highlight);
+    border-bottom: 2px dashed var(--accent);
+    cursor: pointer;
+    padding: 0 1px;
+    border-radius: 2px;
+    transition: background var(--transition);
+    position: relative;
+  }
+  .word-marked:hover { background: var(--highlight-hover); }
+  .word-marked.has-note::after {
+    content: '•';
+    position: absolute;
+    top: -8px;
+    right: -4px;
+    font-size: 10px;
+    color: var(--accent);
+  }
+  /* Tooltip on hover */
+  .word-marked:hover::before {
+    content: attr(data-note);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  /* ── Sidebar (Vocabulary Panel) ── */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--card-bg);
+    border-left: 1px solid var(--border);
+    position: sticky;
+    top: 61px;
+    height: calc(100vh - 61px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), opacity var(--transition);
+    z-index: 90;
+  }
+  .sidebar.collapsed {
+    /* Still in DOM but hidden approach: we use a toggle class on a wrapper */
+  }
+  .sidebar-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--card-bg);
+    z-index: 5;
+  }
+  .sidebar-header h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .search-input {
+    width: 100%;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--transition);
+  }
+  .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(74,111,165,0.1); }
+  .sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .vocab-item {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0ede6;
+    transition: background var(--transition);
+  }
+  .vocab-item:hover { background: #fcfbf8; }
+  .vocab-item .word-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .vocab-item .word-text {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #1a1a1a;
+  }
+  .vocab-item .word-article {
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .vocab-item .note-input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    resize: none;
+    transition: var(--transition);
+    margin-top: 4px;
+  }
+  .vocab-item .note-input:focus { border-color: var(--accent); }
+  .vocab-item .word-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    color: var(--text-secondary);
+  }
+  .icon-btn:hover { background: #f0ede6; color: #c44; }
+
+  .sidebar-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* ── Sidebar Toggle Button ── */
+  .sidebar-toggle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    padding: 14px 6px;
+    cursor: pointer;
+    z-index: 95;
+    writing-mode: vertical-rl;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    box-shadow: -2px 0 8px rgba(0,0,0,0.04);
+    transition: var(--transition);
+  }
+  .sidebar-toggle:hover { background: var(--accent-light); }
+  .sidebar-toggle.hidden { display: none; }
+
+  /* ── Modal (for adding word with note) ── */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal h3 { margin-bottom: 8px; font-size: 1.15rem; }
+  .modal .word-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--accent-light);
+  }
+  .modal label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .modal input, .modal textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 14px;
+  }
+  .modal input:focus, .modal textarea:focus { border-color: var(--accent); }
+  .modal textarea { resize: vertical; min-height: 80px; }
+  .modal .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  /* ── Export dropdown ── */
+  .dropdown { position: relative; display: inline-block; }
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    min-width: 160px;
+    display: none;
+    z-index: 200;
+    padding: 4px 0;
+  }
+  .dropdown-menu.show { display: block; }
+  .dropdown-menu .menu-item {
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+  }
+  .dropdown-menu .menu-item:hover { background: var(--accent-light); }
+
+  /* ── Dictation Modal ── */
+  .dict-modal {
+    max-width: 560px;
+    width: 92%;
+  }
+  .dict-setup-screen, .dict-test-screen, .dict-result-screen {
+    display: none;
+  }
+  .dict-setup-screen.active, .dict-test-screen.active, .dict-result-screen.active {
+    display: block;
+  }
+
+  /* Mode tabs */
+  .mode-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .mode-tab {
+    flex: 1;
+    padding: 10px 14px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    border: none;
+    transition: var(--transition);
+    color: var(--text-secondary);
+  }
+  .mode-tab:first-child { border-right: 1px solid var(--border); }
+  .mode-tab.active {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .mode-tab:hover:not(.active) { background: #f5f3ee; }
+
+  .dict-available-count {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    padding: 10px;
+    background: var(--accent-light);
+    border-radius: var(--radius-sm);
+  }
+  .dict-available-count .count-num {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .dict-available-count.warning {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  /* Test screen */
+  .dict-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .dict-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e8e5dc;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .dict-progress-bar .fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .dict-prompt {
+    background: var(--accent-light);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .dict-prompt .prompt-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .dict-prompt .prompt-text {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.4;
+  }
+
+  .dict-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .dict-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--transition);
+  }
+  .dict-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(74,111,165,0.1); }
+  .dict-input.correct { border-color: #4caf50; background: #f1f8f1; }
+  .dict-input.incorrect { border-color: #e53935; background: #fff5f5; }
+
+  .dict-submit-btn {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .dict-submit-btn:hover { background: #3d5d8a; }
+  .dict-submit-btn:disabled { background: #bbb; cursor: not-allowed; }
+
+  .dict-next-btn {
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    transition: var(--transition);
+    display: block;
+    margin: 0 auto;
+  }
+  .dict-next-btn:hover { background: #3d5d8a; }
+
+  .dict-feedback {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: none;
+  }
+  .dict-feedback.show { display: block; }
+  .dict-feedback.correct { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .dict-feedback.incorrect { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  .dict-feedback .correct-answer {
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  /* Result screen */
+  .dict-score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .dict-score-circle.excellent { background: #e8f5e9; color: #2e7d32; border: 3px solid #4caf50; }
+  .dict-score-circle.good { background: #fff8e1; color: #e65100; border: 3px solid #ff9800; }
+  .dict-score-circle.poor { background: #ffebee; color: #c62828; border: 3px solid #e53935; }
+  .dict-score-circle .score-num {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+  .dict-score-circle .score-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  .dict-mistakes {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .dict-mistakes h4 {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .mistake-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #fff8f6;
+    border: 1px solid #fdd;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+  }
+  .mistake-item .mistake-prompt {
+    flex: 1;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+  .mistake-item .mistake-arrow { color: #c44; }
+  .mistake-item .mistake-answer {
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+  .dict-result-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .dict-no-words {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 24px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* ── Page Navigation ── */
+  .page-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .page-tab {
+    flex: 1;
+    padding: 14px 20px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    border: none;
+    transition: var(--transition);
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .page-tab:first-child { border-right: 1px solid var(--border); }
+  .page-tab .tab-label { font-weight: 600; font-size: 0.95rem; }
+  .page-tab .tab-date { font-size: 0.72rem; color: var(--text-secondary); opacity: 0.7; }
+  .page-tab.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  .page-tab.active .tab-date { color: rgba(255,255,255,0.75); }
+  .page-tab:hover:not(.active) { background: #f5f3ee; }
+
+  .article-page { display: none; }
+  .article-page.active { display: block; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .app-layout { flex-direction: column; }
+    .main-content { padding: 20px 16px 40px; max-width: 100%; }
+    .sidebar {
+      width: 100%;
+      height: auto;
+      max-height: 50vh;
+      position: relative;
+      top: auto;
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-toggle { display: none; }
+    .article-card { padding: 24px 20px; }
+    .dict-modal { max-width: 100%; width: 96%; padding: 20px 16px; }
+    .dict-prompt { padding: 16px 20px; }
+    .dict-prompt .prompt-text { font-size: 1.3rem; }
+    .page-nav { flex-direction: column; }
+    .page-tab:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo">📖 CET-6 Vocabulary <span>| 六级词汇精读</span></div>
+  <div class="header-actions">
+    <span class="vocab-count" id="vocabCount">0 个生词</span>
+    <div class="dropdown" id="exportDropdown">
+      <button class="btn btn-primary" id="btnExport">📥 导出生词</button>
+      <div class="dropdown-menu" id="exportMenu">
+        <div class="menu-item" data-format="csv">📄 导出 CSV</div>
+        <div class="menu-item" data-format="json">📋 导出 JSON</div>
+        <div class="menu-item" data-format="txt">📝 导出 TXT (纯文本)</div>
+      </div>
+    </div>
+    <button class="btn" id="btnDictation" title="对生词本中的单词进行默写测试">📝 默写</button>
+    <button class="btn btn-danger btn-sm" id="btnClearAll">🗑 清空全部</button>
+  </div>
+</header>
+
+<!-- Layout -->
+<div class="app-layout">
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Page Navigation -->
+    <div class="page-nav" id="pageNav"></div>
+
+    <!-- Article pages dynamically rendered from articles.js -->
+    <div id="articlePagesContainer"></div>
+  </main>
+
+  <!-- Sidebar Toggle -->
+  <button class="sidebar-toggle" id="sidebarToggle" title="显示/隐藏生词本">📒 生词本</button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>📒 我的生词本 <span style="font-weight:400;font-size:0.8rem;color:var(--text-secondary)" id="sidebarCount"></span></h3>
+      <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索生词或注释...">
+    </div>
+    <div class="sidebar-list" id="vocabList">
+      <div class="sidebar-empty">
+        👆 在文章中<strong>右键点击</strong>单词<br>即可添加到生词本<br><br>
+        <span style="font-size:0.8rem">已标注的单词会以<span style="background:var(--highlight);padding:0 4px;">黄色高亮</span>显示</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Context Menu -->
+<div class="context-menu" id="contextMenu">
+  <div class="menu-item" id="menuAddWord">➕ 添加到生词本</div>
+  <div class="menu-divider"></div>
+  <div class="menu-item" id="menuLookup">🔍 查词典 (必应)</div>
+</div>
+
+<!-- Add Word Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>添加生词</h3>
+    <div class="word-display" id="modalWord"></div>
+    <label for="modalNote">📝 注释 / 释义</label>
+    <textarea id="modalNote" placeholder="输入单词的中文释义、例句或任何笔记..."></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="modalCancel">取消</button>
+      <button class="btn btn-primary" id="modalConfirm">✅ 添加到生词本</button>
+    </div>
+  </div>
+</div>
+
+<!-- Dictation Modal -->
+<div class="modal-overlay" id="dictationOverlay">
+  <div class="modal dict-modal">
+    <!-- Setup Screen -->
+    <div class="dict-setup-screen active" id="dictSetupScreen">
+      <h3>📝 单词默写</h3>
+      <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">选择默写模式，测试你对生词的掌握程度</p>
+
+      <div class="mode-tabs" id="modeTabs">
+        <button class="mode-tab active" data-mode="cn2en">🇨🇳→🇬🇧 看释义写单词</button>
+        <button class="mode-tab" data-mode="en2cn">🇬🇧→🇨🇳 看单词写释义</button>
+      </div>
+
+      <div class="dict-available-count" id="dictAvailableCount"></div>
+
+      <div class="modal-actions">
+        <button class="btn" id="dictCancel">取消</button>
+        <button class="btn btn-primary" id="dictStart">🚀 开始默写</button>
+      </div>
+    </div>
+
+    <!-- Test Screen -->
+    <div class="dict-test-screen" id="dictTestScreen">
+      <div class="dict-progress">
+        <span id="dictProgressText">1 / 10</span>
+        <span id="dictScoreText">✅ 0</span>
+      </div>
+      <div class="dict-progress-bar">
+        <div class="fill" id="dictProgressFill" style="width:0%"></div>
+      </div>
+
+      <div class="dict-prompt">
+        <div class="prompt-label" id="dictPromptLabel">请输入对应的英文单词</div>
+        <div class="prompt-text" id="dictPromptText"></div>
+      </div>
+
+      <div class="dict-input-row">
+        <input type="text" class="dict-input" id="dictInput" placeholder="输入你的答案..." autocomplete="off">
+        <button class="dict-submit-btn" id="dictSubmit">提交</button>
+      </div>
+
+      <div class="dict-feedback" id="dictFeedback"></div>
+
+      <button class="dict-next-btn" id="dictNext" style="display:none;">下一题 ➡️</button>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="dict-result-screen" id="dictResultScreen">
+      <h3 style="text-align:center;margin-bottom:20px;">🎯 默写结果</h3>
+
+      <div class="dict-score-circle" id="dictScoreCircle">
+        <div class="score-num" id="dictScoreNum">0%</div>
+        <div class="score-label" id="dictScoreLabel"></div>
+      </div>
+
+      <div class="dict-mistakes" id="dictMistakes" style="display:none;">
+        <h4>❌ 错题回顾</h4>
+        <div id="dictMistakesList"></div>
+      </div>
+
+      <div class="dict-result-actions">
+        <button class="btn" id="dictRetryMistakes" style="display:none;">🔄 重新默写错题</button>
+        <button class="btn btn-primary" id="dictRetryAll">🔁 再来一轮</button>
+        <button class="btn" id="dictClose">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+<script src="articles.js"></script>
+<script src="vocab-store.js"></script>
+<script src="dictation.js"></script>
+<script src="export.js"></script>
+<script>
+(function() {
+  // ── DOM refs ──
+  const contextMenu = document.getElementById('contextMenu');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalWord = document.getElementById('modalWord');
+  const modalNote = document.getElementById('modalNote');
+  const vocabList = document.getElementById('vocabList');
+  const vocabCount = document.getElementById('vocabCount');
+  const sidebarCount = document.getElementById('sidebarCount');
+  const searchInput = document.getElementById('searchInput');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const exportMenu = document.getElementById('exportMenu');
+  const btnExport = document.getElementById('btnExport');
+  const toast = document.getElementById('toast');
+
+  let selectedWord = '';
+  let selectedArticle = '';
+  let toastTimer = null;
+
+  // ── Highlight / restore marked words in articles ──
+  function highlightMarkedWords() {
+    // Remove existing marks
+    document.querySelectorAll('.word-marked').forEach(el => {
+      // Unwrap but keep text — actually we'll just update class and data attributes
+    });
+
+    // Go through all .word-marked spans and update their appearance based on vocabulary
+    document.querySelectorAll('.word-marked').forEach(el => {
+      const word = el.getAttribute('data-word');
+      const key = word.toLowerCase();
+      if (vocabulary[key]) {
+        el.classList.add('active');
+        if (vocabulary[key].note) {
+          el.classList.add('has-note');
+          el.setAttribute('data-note', vocabulary[key].note);
+          el.title = vocabulary[key].note;
+        } else {
+          el.classList.remove('has-note');
+          el.removeAttribute('data-note');
+          el.title = '已标记 (无注释)';
+        }
+      } else {
+        el.classList.remove('active', 'has-note');
+        el.removeAttribute('data-note');
+        el.title = '';
+      }
+    });
+  }
+
+  // ── Render sidebar ──
+  function renderVocabList(filter = '') {
+    const entries = Object.values(vocabulary);
+    const filtered = filter
+      ? entries.filter(e =>
+          e.word.toLowerCase().includes(filter.toLowerCase()) ||
+          (e.note && e.note.toLowerCase().includes(filter.toLowerCase()))
+        )
+      : entries;
+
+    // Sort by addedAt desc
+    filtered.sort((a, b) => (b.addedAt || '').localeCompare(a.addedAt || ''));
+
+    if (filtered.length === 0) {
+      vocabList.innerHTML = filter
+        ? '<div class="sidebar-empty">没有匹配的生词</div>'
+        : `<div class="sidebar-empty">
+            👆 在文章中<strong>右键点击</strong>单词<br>即可添加到生词本<br><br>
+            <span style="font-size:0.8rem">已标注的单词会以<span style="background:var(--highlight);padding:0 4px;">黄色高亮</span>显示</span>
+          </div>`;
+    } else {
+      vocabList.innerHTML = filtered.map(entry => `
+        <div class="vocab-item" data-word="${entry.word}">
+          <div class="word-row">
+            <span class="word-text">${escapeHtml(entry.word)}</span>
+            <div class="word-actions">
+              <span class="word-article">文章${entry.article || '?'}</span>
+              <button class="icon-btn btn-remove" data-word="${entry.word}" title="删除">✕</button>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="note-input"
+            placeholder="添加注释 / 释义..."
+            value="${escapeHtml(entry.note || '')}"
+            data-word="${entry.word}"
+          >
+        </div>
+      `).join('');
+
+      // Bind note input changes
+      vocabList.querySelectorAll('.note-input').forEach(input => {
+        input.addEventListener('blur', function() {
+          updateNote(this.getAttribute('data-word'), this.value);
+        });
+        // Also save on Enter
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            this.blur();
+          }
+        });
+      });
+
+      // Bind remove buttons
+      vocabList.querySelectorAll('.btn-remove').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          removeWord(this.getAttribute('data-word'));
+        });
+      });
+    }
+
+    // Update counts
+    const total = Object.keys(vocabulary).length;
+    vocabCount.textContent = `${total} 个生词`;
+    sidebarCount.textContent = total ? `共 ${total} 个` : '';
+  }
+
+  function renderAll() {
+    highlightMarkedWords();
+    renderVocabList(searchInput.value);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ── Toast ──
+  function showToast(msg) {
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // ── Context Menu ──
+  document.addEventListener('contextmenu', function(e) {
+    // Check if clicked on or inside a word-marked span
+    const markedEl = e.target.closest('.word-marked');
+    // Also allow right-click on any text node within article paragraphs
+    const articleCard = e.target.closest('.article-card');
+
+    if (!articleCard) {
+      // Outside article — hide context menu
+      contextMenu.style.display = 'none';
+      return; // let default context menu show
+    }
+
+    let word = '';
+    if (markedEl) {
+      word = markedEl.getAttribute('data-word') || markedEl.textContent.trim();
+    } else {
+      // Get the word under cursor from the text node
+      word = getWordAtPoint(e);
+    }
+
+    if (!word || word.length < 2) {
+      contextMenu.style.display = 'none';
+      return; // let default context menu show (preventDefault NOT called)
+    }
+
+    // Only prevent default browser menu when we are showing our custom menu
+    e.preventDefault();
+
+    selectedWord = word;
+    selectedArticle = articleCard.getAttribute('data-article') || '';
+
+    // Show context menu (position: fixed uses viewport-relative clientX/Y)
+    contextMenu.style.display = 'block';
+    contextMenu.style.left = e.clientX + 'px';
+    contextMenu.style.top = e.clientY + 'px';
+
+    // Keep menu in viewport
+    const rect = contextMenu.getBoundingClientRect();
+    if (rect.right > window.innerWidth) {
+      contextMenu.style.left = (e.clientX - rect.width) + 'px';
+    }
+    if (rect.bottom > window.innerHeight) {
+      contextMenu.style.top = (e.clientY - rect.height) + 'px';
+    }
+  });
+
+  // Hide context menu on click elsewhere
+  document.addEventListener('click', function(e) {
+    if (!contextMenu.contains(e.target)) {
+      contextMenu.style.display = 'none';
+    }
+  });
+
+  // ── Get word at mouse point ──
+  function getWordAtPoint(e) {
+    // Use caretPositionFromPoint or range
+    let range;
+    if (document.caretPositionFromPoint) {
+      const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+      if (pos && pos.offsetNode && pos.offsetNode.nodeType === Node.TEXT_NODE) {
+        range = document.createRange();
+        range.setStart(pos.offsetNode, pos.offset);
+        range.setEnd(pos.offsetNode, pos.offset);
+      }
+    } else if (document.caretRangeFromPoint) {
+      range = document.caretRangeFromPoint(e.clientX, e.clientY);
+    }
+
+    if (!range) return '';
+
+    // Expand range to cover the whole word
+    const textNode = range.startContainer;
+    const offset = range.startOffset;
+    const text = textNode.textContent;
+
+    if (!text) return '';
+
+    // Find word boundaries
+    let start = offset;
+    let end = offset;
+
+    // Go backwards
+    while (start > 0 && /\w/.test(text[start - 1])) start--;
+    // Go forwards
+    while (end < text.length && /\w/.test(text[end])) end++;
+
+    const word = text.slice(start, end).trim();
+
+    // Filter out very short or non-word selections
+    if (word.length < 2 || word.length > 40) return '';
+    if (!/[a-zA-Z]/.test(word)) return '';
+
+    return word;
+  }
+
+  // ── Context Menu Actions ──
+  document.getElementById('menuAddWord').addEventListener('click', function() {
+    contextMenu.style.display = 'none';
+    openAddWordModal(selectedWord, selectedArticle);
+  });
+
+  document.getElementById('menuLookup').addEventListener('click', function() {
+    contextMenu.style.display = 'none';
+    window.open(`https://cn.bing.com/dict/search?q=${encodeURIComponent(selectedWord)}`, '_blank');
+  });
+
+  // ── Modal ──
+  function openAddWordModal(word, article) {
+    modalWord.textContent = word;
+    modalNote.value = '';
+    modalOverlay.classList.add('active');
+    modalNote.focus();
+    selectedWord = word;
+    selectedArticle = article;
+  }
+
+  document.getElementById('modalCancel').addEventListener('click', function() {
+    modalOverlay.classList.remove('active');
+  });
+
+  document.getElementById('modalConfirm').addEventListener('click', function() {
+    const note = modalNote.value.trim();
+    addWord(selectedWord, selectedArticle, note);
+    modalOverlay.classList.remove('active');
+  });
+
+  // Close modal on overlay click
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      modalOverlay.classList.remove('active');
+    }
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      modalOverlay.classList.remove('active');
+      contextMenu.style.display = 'none';
+    }
+  });
+
+  // ── Export ──
+  btnExport.addEventListener('click', function(e) {
+    e.stopPropagation();
+    exportMenu.classList.toggle('show');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!exportMenu.contains(e.target) && e.target !== btnExport) {
+      exportMenu.classList.remove('show');
+    }
+  });
+
+  exportMenu.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const format = this.getAttribute('data-format');
+      exportMenu.classList.remove('show');
+      doExport(format);
+    });
+  });
+
+  // ── Clear All ──
+  document.getElementById('btnClearAll').addEventListener('click', clearAllVocab);
+
+  // ── Search ──
+  searchInput.addEventListener('input', function() {
+    renderVocabList(this.value);
+  });
+
+  // ── Sidebar Toggle ──
+  sidebarToggle.addEventListener('click', function() {
+    sidebar.classList.toggle('collapsed');
+    if (sidebar.classList.contains('collapsed')) {
+      sidebar.style.display = 'none';
+      sidebarToggle.textContent = '📒 展开';
+      sidebarToggle.style.right = '0';
+    } else {
+      sidebar.style.display = 'flex';
+      sidebarToggle.textContent = '📒 生词本';
+      sidebarToggle.style.right = '420px';
+    }
+  });
+
+  // ── Click on marked word in article to quick-edit ──
+  document.addEventListener('click', function(e) {
+    const markedEl = e.target.closest('.word-marked');
+    if (markedEl && !e.target.closest('.context-menu')) {
+      const word = markedEl.getAttribute('data-word');
+      if (isWordMarked(word)) {
+        // Scroll to and highlight in sidebar
+        sidebar.style.display = 'flex';
+        sidebar.classList.remove('collapsed');
+        sidebarToggle.textContent = '📒 生词本';
+        sidebarToggle.style.right = '420px';
+
+        searchInput.value = '';
+        renderVocabList();
+
+        // Find and scroll to the vocab item
+        setTimeout(() => {
+          const item = vocabList.querySelector(`.vocab-item[data-word="${CSS.escape(word)}"]`);
+          if (item) {
+            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            item.style.background = '#fffde8';
+            setTimeout(() => { item.style.background = ''; }, 2000);
+            // Focus the note input
+            const input = item.querySelector('.note-input');
+            if (input) setTimeout(() => input.focus(), 500);
+          }
+        }, 100);
+      }
+    }
+  });
+
+  // ── Page Navigation ──
+  // Page navigation is now handled by attachPageNavEvents() called from renderAllArticles()
+  // Initial attachment happens in renderAllArticles() → init()
+
+
+  // Dictation logic moved to dictation.js
+
+  // ── Init ──
+  // ── Article Rendering (from articles.js data) ──
+  const ARTICLES_PER_PAGE = 3;
+
+  function renderArticleHTML(article) {
+    const paragraphs = article.paragraphs.map(p => {
+      const escaped = p.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const html = escaped.replace(/\{([^}]+)\}/g, (_, word) =>
+        `<span class="word-marked" data-word="${word}">${word}</span>`
+      );
+      return '<p>' + html + '</p>';
+    }).join('\n');
+
+    const metaParts = ['📄 Article ' + article.id, '约 ' + article.wordCount + ' 词', article.theme];
+    if (article.source) {
+      metaParts.push('选自 ' + article.source + (article.date ? ', ' + article.date : ''));
+    }
+
+    return `<article class="article-card" id="article-${article.id}" data-article="${article.id}">
+      <h2>${article.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h2>
+      <div class="article-meta">${metaParts.join(' · ')}</div>
+      ${paragraphs}
+    </article>`;
+  }
+
+  function renderAllArticles() {
+    const totalPages = Math.ceil(ARTICLES.length / ARTICLES_PER_PAGE);
+    const pageLabels = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+    // Render page tabs
+    const pageNav = document.getElementById('pageNav');
+    pageNav.innerHTML = Array.from({ length: totalPages }, (_, i) => {
+      const pageNum = i + 1;
+      const start = i * ARTICLES_PER_PAGE;
+      const end = Math.min(start + ARTICLES_PER_PAGE, ARTICLES.length);
+      const pageArticles = ARTICLES.slice(start, end);
+      const pageDate = pageArticles[0]?.date || '';
+      const label = pageLabels[i] || String(pageNum);
+      return `<button class="page-tab${i === 0 ? ' active' : ''}" data-page="${pageNum}">
+        <span class="tab-label">📖 第${label}页</span>
+        ${pageDate ? '<span class="tab-date">' + pageDate + '</span>' : ''}
+      </button>`;
+    }).join('');
+
+    // Render article pages
+    const container = document.getElementById('articlePagesContainer');
+    container.innerHTML = Array.from({ length: totalPages }, (_, i) => {
+      const pageNum = i + 1;
+      const start = i * ARTICLES_PER_PAGE;
+      const pageArticles = ARTICLES.slice(start, Math.min(start + ARTICLES_PER_PAGE, ARTICLES.length));
+      return `<div class="article-page${i === 0 ? ' active' : ''}" id="page${pageNum}">
+        ${pageArticles.map(renderArticleHTML).join('\n')}
+      </div>`;
+    }).join('');
+
+    // Re-attach page navigation events
+    attachPageNavEvents();
+
+    // Update word-marked highlighting after render
+    highlightMarkedWords();
+  }
+
+  function attachPageNavEvents() {
+    const tabs = document.querySelectorAll('#pageNav .page-tab');
+    const pages = document.querySelectorAll('#articlePagesContainer .article-page');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const pageNum = this.getAttribute('data-page');
+
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        pages.forEach(p => {
+          p.classList.remove('active');
+          if (p.id === 'page' + pageNum) p.classList.add('active');
+        });
+
+        // Re-highlight words in newly shown page
+        highlightMarkedWords();
+      });
+    });
+  }
+
+  // Expose key functions globally for module access
+  window.renderAll = renderAll;
+  window.highlightMarkedWords = highlightMarkedWords;
+  window.showToast = showToast;
+  window.escapeHtml = escapeHtml;
+
+  function init() {
+    loadVocabulary();
+    renderAllArticles();
+    renderAll();
+
+    // Set initial sidebar toggle position
+    sidebarToggle.style.right = '420px';
+  }
+
+  // Handle responsive: on small screens, always show sidebar below
+  function handleResize() {
+    if (window.innerWidth <= 900) {
+      sidebarToggle.style.display = 'none';
+      sidebar.style.display = 'flex';
+    } else {
+      sidebarToggle.style.display = 'block';
+    }
+  }
+  window.addEventListener('resize', handleResize);
+  handleResize();
+
+  init();
+
+  console.log('📖 CET-6 Vocabulary Reader 已就绪');
+  console.log('  ➤ 右键点击文章中的单词 → 添加到生词本');
+  console.log('  ➤ 左键点击已标记单词 → 快速跳转到生词本');
+  console.log('  ➤ 在生词本中为每个单词添加注释');
+  console.log('  ➤ 点击"导出生词"下载 CSV / JSON / TXT');
+  console.log('  ➤ 点击"📝 默写"对生词进行自测');
+})();
+</script>
+
+</body>
+</html>
