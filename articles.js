@@ -244,4 +244,47 @@ const ARTICLES = [
       "Amid the {gloom}, there are {glimmers} of hope. States that have {embraced} the 'science of reading' — a phonics-based approach to literacy — have seen {measurable} improvements, particularly among younger students. And the {backlash} against unproven educational technology is gaining {momentum}: in New York City, a proposed AI-focused high school was {scrapped} in May 2026 after {intense} parent protests, with one {advocate} describing the outrage as 'as great as I've seen on any education issue in 25 years.' The episode suggests that the public may be reaching a {threshold} of {tolerance} for {unproven} technological {interventions} in the classroom — and that meaningful reform, when grounded in evidence rather than hype, can still command broad support.",
     ]
   }
+,
+
+  {
+    id: 19,
+    title: "The Fragile Architecture of Global Commerce",
+    source: "The Economist",
+    date: "2026/06",
+    theme: "经济与地缘政治",
+    wordCount: 380,
+    paragraphs: [
+      "The blockade of the Strait of Hormuz — through which roughly 15% of global crude oil transits each day — has {triggered} the most severe disruption to energy markets in half a century. When Iran {retaliated} against military strikes by mining the narrow waterway in March 2026, few {anticipated} that the crisis would {persist} into the summer. Oil prices {initially} {surged} from $70 to nearly $120 per barrel before retreating on {premature} hopes of a swift resolution, only to {rebound} as the strait remained effectively impassable. The sheer magnitude of this volatility, economists observe, has inevitably drawn comparisons to the oil crises of the 1970s — though today's disruption is {compounded} by the simultaneous closure of Red Sea shipping lanes, shut to commercial vessels since late 2023.",
+      "The crisis has exposed the inherent fragility of contemporary supply chains. With two strategic maritime corridors now compromised, shipping companies must {undertake} lengthy detours around the Cape of Good Hope, roughly {doubling} transit times and sending insurance {premiums} sharply higher. The International Energy Agency has cautioned that petroleum reserves are being {depleted} at a record pace; Washington and Beijing alike have been drawing on {stockpiles} that cannot indefinitely {sustain} current consumption levels. Even a prompt diplomatic settlement, analysts caution, would leave supply networks {impaired} for months — sea lanes must be de-mined and the psychological barrier to normal commerce patiently rebuilt.",
+      "The crisis has {reignited} a long-standing debate about the {imperative} of supply chain {diversification}. For decades, multinational corporations {pursued} lean logistics and {consolidated} production in a handful of low-cost nations — a model that critics have long argued {sacrifices} {resilience} for marginal cost savings. The current {upheaval} has lent {credence} to those warnings, {compelling} governments to {formulate} policies that build {redundancy} into critical supply networks. Whether this marks a {genuine} {structural} {transition} or merely a transient response to an exceptional shock remains unclear. But one conclusion has grown increasingly certain: the era of assuming {geopolitical} stability in global commerce has {irreversibly} ended.",
+    ]
+  },
+
+  {
+    id: 20,
+    title: "A Nation Built for a Climate That No Longer Exists",
+    source: "The Guardian",
+    date: "2026/06",
+    theme: "气候适应与公共政策",
+    wordCount: 380,
+    paragraphs: [
+      "In late May 2026, temperatures across Britain {surged} to 35°C — a figure more typical of midsummer in southern Europe than spring in Yorkshire, which recorded its first-ever 'tropical night' with overnight temperatures {persistently} above 20°C. The {phenomenon} prompted the Climate Change Committee (CCC) to issue a {stark} {verdict}: the United Kingdom is 'built for a climate that no longer exists.' The {assessment}, published on May 20, represents the most {comprehensive} government-{commissioned} analysis of Britain's climate {vulnerability} to date — and its conclusions are {profoundly} unsettling. Without {urgent} and {systematic} {intervention}, the report warns, heat-related deaths could rise by 10,000 annually, and the economic toll of climate impacts could {escalate} from roughly £60 billion per year — already 2% of GDP — to £260 billion within two decades.",
+      "The report's findings lay bare a disturbing pattern of climate {inequality}. An estimated 90% of UK homes are at risk of overheating, yet air conditioning remains a luxury {confined} largely to the {affluent}. Hospitals, care homes, schools, and prisons — institutions housing the most {susceptible} populations — are among the least prepared. The CCC has recommended that cooling be {mandated} in all care homes and hospitals within ten years and in all schools within twenty-five, alongside a statutory maximum working temperature for both indoor and outdoor {occupations}. 'We cannot afford to treat heat as a {trivial} inconvenience,' the committee's chair {remarked}. 'It is a {lethal} hazard, and our infrastructure must reflect that reality.'",
+      "Yet the report also offers a {cautiously} {optimistic} {framework} for action. Every pound invested in adaptation, the analysis found, {yields} roughly five pounds in avoided damages — a return that few other public investments can match. The CCC has called for climate {resilience} to be {declared} a national {priority}, with a dedicated Minister for Resilience installed in the Cabinet Office and a legal duty {imposed} on all planning authorities to {guarantee} that new developments meet climate safety standards. Whether the government will {muster} the political will to act remains the {critical} question. As the Guardian's environment editor observed, Britain must learn to think like a hot country — and do so with a {velocity} that its political system has rarely {demonstrated}.",
+    ]
+  },
+
+  {
+    id: 21,
+    title: "The Brain's Hidden Reservoir: How Silent Synapses Enable Lifelong Learning",
+    source: "Scientific American",
+    date: "2026/06",
+    theme: "神经科学与终身学习",
+    wordCount: 380,
+    paragraphs: [
+      "For decades, neuroscientists believed that the brain's capacity to form new connections — the {cellular} basis of learning and memory — was largely {confined} to early childhood. The adult brain, it was thought, traded {flexibility} for {stability}, preserving hard-won knowledge at the cost of {diminished} adaptability. A {landmark} study, led by MIT neuroscientists and featured prominently in Scientific American's 2026 coverage of {cognitive} science, has {decisively} overturned this {assumption}. Using an innovative imaging technique called eMAP, the team discovered that approximately 30% of synapses in the adult cortex are 'silent' — {dormant} connections that remain electrically inactive until called upon to encode new information.",
+      "These silent synapses reside on delicate structures called filopodia, thin protrusions from dendrites that lack AMPA receptors — the molecular {machinery} needed to pass electrical signals under normal conditions. Yet they are far from obsolete. When the brain encounters {novel} or significant information, a precisely timed pairing of pre- and post-synaptic activity can {recruit} AMPA receptors to the synapse within minutes, transforming a silent connection into a fully {functional} one. Crucially, this process leaves mature synapses {intact}, solving a long-standing {puzzle}: how can the brain {acquire} new knowledge without {overwriting} existing memories? The answer lies in this {elegant} two-tier {architecture}, where stable spines store the past and {plastic} filopodia await the future.",
+      "The {implications} for education, aging, and neurological disease are {immense}. If silent synapses {decline} with age — as {preliminary} evidence {suggests} — then {therapeutic} strategies that preserve this hidden {reservoir} could {enhance} cognitive {longevity}. For educators, the finding {underscores} the importance of active {engagement}: passive exposure alone is unlikely to {convert} silent synapses into lasting circuits. As the lead author remarked, 'The brain is not a fixed {entity} but a constantly {evolving} landscape. We are only beginning to understand how much potential lies dormant within it.' The research reminds us that {maturity} need not mean {rigidity} — and that the capacity for growth, however {latent}, may {endure} far longer than we once believed.",
+    ]
+  }
 ];
